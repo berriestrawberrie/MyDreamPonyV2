@@ -1,0 +1,86 @@
+:root{
+    --sky-main: #5ac3ff;
+    --sky-accent: #d3efff;
+    --sky-white: #fff;
+}
+
+.register{
+    margin: 10px 0;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+}
+label{
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--sky-main);
+}
+button{
+    background-color:var(--sky-main);
+    border:2px solid var(--sky-main);
+    padding: 5px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+button:hover{
+    background-color: var(--sky-white);
+    color: var(--sky-main);
+    border:2px solid var(--sky-main);
+}
+.scroll {
+  overflow: scroll;
+  scrollbar-color: var(--sky-main)transparent;
+  scrollbar-width: thin;
+}
+.float{
+    animation-name: floating;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+.page{
+    font-family: "Cherry Bomb One", system-ui;
+      -webkit-text-fill-color: white; /* Will override color (regardless of order) */
+      -webkit-text-stroke: 1px #7bc4ff;
+}
+
+  .selection-icon img {
+    width: 80px;
+
+  }
+
+/* HIDE RADIO */
+[type=radio] { 
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+/* IMAGE STYLES */
+[type=radio] + img {
+  cursor: pointer;
+  border: 2px solid var(--color-amber-400);
+  border-radius: 10px;
+  padding: 5px;
+  background-color: var(--sky-accent);
+}
+
+/* CHECKED STYLES */
+[type=radio]:checked + img {
+
+    background-color: var(--sky-main);
+}
+
+
+@keyframes floating {
+    0%{
+        transform: translate(0, 0px);
+    }
+    50%{
+        transform: translate(0,5px);
+    }
+    100%{
+        transform: translate(0,-0px);
+    }
+}
