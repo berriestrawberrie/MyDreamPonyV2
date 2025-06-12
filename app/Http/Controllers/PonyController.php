@@ -10,7 +10,6 @@ class PonyController extends Controller
     public function ponyProfile($colors)
     {
         $hexcolors = json_decode($colors);
-
         return view('pony.ponyprofile', compact('hexcolors'));
     }
 }

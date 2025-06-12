@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\ColorPonyImage;
+use App\Events\NewPony;
 use App\Models\BuildPony;
 use App\Models\SpecialTrait;
 use Illuminate\Http\Request;
@@ -27,14 +29,10 @@ class GeneratorController extends Controller
     public function generatePony(Request $request)
     {
         $colors = ["eyes", "hair", "hair2", "accent", "accent2", "coat"];
-        $babycolors = [];
+        $carryID = [];
 
-        //ALL CURRENTLY AVAILABLE TRAITS
-        $hairs = ["streak", "hfade", "hrainbow"];
-        $faces = ["blaze", "ffade", "fvulpine"];
-        $none = ["none"];
-        $bodys = ["paint"];
-        $uncolored = ["hrainbow", "fvulpine"];
+        //GENERATE A TEMPORARY TOKEN TO ASSOCIATE PONY
+        $token = uniqid();
 
         //RETRIEVE THE GENERATOR PONY SEX
         $sex = $request->input("sex");
@@ -56,7 +54,7 @@ class GeneratorController extends Controller
                 array_push($carryID, $specialId);
             } //END FOREACH
 
-            $babytrait = false;
+            $babytrait = null;
         } //END ELSE
 
         $newcolors = [];
@@ -167,66 +165,27 @@ class GeneratorController extends Controller
             $breedID = '7';
         }
 
-        //BUILD THE TRAIT IMAGE
-        if ($babytrait) {
-            //PULL THE IMAGE FROM DB BY AVATAR ID
-            $specialtrait = SpecialTrait::where('traitname', $babytrait)->get();
-            $img = $specialtrait[0][$traitID];
-            //GENERATE GD IMAGE FROM DB BLOB
-            $gdImg = imagecreatefromstring($img);
-            if ($gdImg !== false) {
-                header('Content-Type: image/png');
-                header('Cache-Control', 'max-age=2592000');
-                imageAlphaBlending($gdImg, true);
-                imageSaveAlpha($gdImg, true);
-                //EXTRACT THE SPECIAL TRAIT COLORING FROM ACCENT IF FACE OR BODY
-                if (in_array($babytrait, $faces) || in_array($babytrait, $bodys)) {
-                    //IF SPECIAL TRAIT IS BOY OR FACE USE ACCENT2
-                    list($huer, $hueg, $hueb) = sscanf($accent2, "%02x%02x%02x");
-                } else {
-                    //ELSE IT'S HAIR TRAIT SO COLOR WITH HAIR2
-                    list($huer, $hueg, $hueb) = sscanf($hair2, "%02x%02x%02x");
-                }
-                //RECOLOR THE PONY HAIR TRAIT IMAGE IF HAIR IS NOT RAINBOW
-                if (in_array($babytrait, $uncolored)) {
+        $newPony = array([
+            'eyes' => $eye,
+            'token' => $token,
+            'hair' => $hair,
+            'hair2' => $hair2,
+            'accent' => $accent,
+            'accent2' => $accent2,
+            'specialtrait' => $babytrait,
+            'coat' => $coat,
+            'sex' => $sex,
+            'breed' => $request->input("breed"),
+            'breedID' => $breedID,
+            'traitID' => $traitID,
+            'genes' => $carryID,
+            'babytrait' => $babytrait
+        ]);
 
-                    imagepng($gdImg, $file = public_path('ponygen/' . 'ponyimg-part' . 'specialtrait.png'));
-                } else {
-                    imagefilter($gdImg, IMG_FILTER_COLORIZE, $huer, $hueg, $hueb);
-                    imagepng($gdImg, $file = public_path('ponygen/' . 'ponyimg-part' . 'specialtrait.png'));
-                }
-                $traitimg = $gdImg;
-                imagedestroy($gdImg);
-            } else {
-                echo 'An error occurred.';
-            }
-        } else {
-            $traitimg = false;
-        } //END OF TRAIT IMAGE
+        event(new NewPony($newPony));
+        event(new ColorPonyImage($newPony));
 
-        //BUILD PONY IMAGE
-        $pony = BuildPony::where('id', $breedID)->get();
-        $ponyimgs = ["imgbase", "imghair", "imgaccent", "imgaccent2", "imgeye", "imgmask", "imgwhite", "imgshade", "imgink"];
-        $ycolors = [$coat, $hair, $accent, $accent2, $eye];
-
-        for ($i = 0; $i < count($ponyimgs); $i++) {
-            $img = $pony[0][$ponyimgs[$i]];
-            //GENERATE GD IMAGE FROM DB BLOB
-            $gdImg = imagecreatefromstring($img);
-            header('Content-Type: image/png');
-            header('Cache-Control', 'max-age=2592000');
-            imageAlphaBlending($gdImg, true);
-            imageSaveAlpha($gdImg, true);
-            //COLORIZE ONLY THE COLOR LAYERS
-            if ($i < 5) {
-                //EXTRACT THE RGB FROM THE HEX COLOR
-                list($huer, $hueg, $hueb) = sscanf($ycolors[$i], "%02x%02x%02x");
-                imagefilter($gdImg, IMG_FILTER_COLORIZE, $huer, $hueg, $hueb);
-                imagepng($gdImg, $file = public_path('ponygen/' . 'ponyimg-part' . $i . '.png'));
-            }
-            imagepng($gdImg, $file = public_path('ponygen/' . 'ponyimg-part' . $i . '.png'));
-        }
-        $colorsJson = json_encode($finalcolors);
-        return redirect()->route('ponyProfile', ['colors' => $colorsJson]);
+        return view('home')->with('success', 'A new ponys is born!');
+        // return redirect()->route('ponyProfile', ['colors' => $colorsJson]);
     } //END OF GEN FUNCTION
 }

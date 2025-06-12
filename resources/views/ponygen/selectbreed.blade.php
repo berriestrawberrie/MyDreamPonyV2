@@ -8,7 +8,7 @@ Select A Breed!
 
 
 <table class="text-xs md:text-sm text-center mb-10">
-    @for($i=0; $i<=3;$i++)
+    @for($i=3; $i>=0;$i--)
         <tr>
             <td><img src="{{asset('site/breeds/female'.$ponys[$i]["typeName"].'.png')}}"></td>
             <td>
