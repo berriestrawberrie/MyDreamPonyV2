@@ -54,6 +54,7 @@ class AddPonyDatabase
             'sex' => $event->newPony[0]["sex"],
             'name' => "Unnamed",
             'token' => $event->newPony[0]["token"],
+            'age' => 0,
             'stable_assign' => 0,
             'created_at' => date("Y/m/d"),
             'ownerid' => Auth::user()->id,

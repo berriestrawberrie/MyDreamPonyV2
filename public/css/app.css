@@ -21,6 +21,7 @@ button{
     padding: 5px;
     border-radius: 10px;
     font-weight: 600;
+
 }
 button:hover{
     background-color: var(--sky-white);
@@ -38,7 +39,36 @@ button:hover{
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
 }
-
+.goldbtn{
+    background-image: url('http://127.0.0.1:8000/site/button.png');
+    max-width: 273px;
+    width: 100%;
+    height: 85px;
+    padding-top: 20px;
+    text-align: center;
+    font-family: "Eagle Lake", serif;
+    font-size: 30px;
+    color: #6C2D03;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+.goldbtn-sm{
+    background-image: url('http://127.0.0.1:8000/site/button.png');
+    width: 100%;
+    text-align: center;
+    font-family: "Eagle Lake", serif;
+    color: #6C2D03;
+    background-size: contain;
+    background-repeat: no-repeat;
+    max-width: 190px;
+    width: 100%;
+    height: 60px;
+    padding-top: 10px;
+    font-size: 25px;
+}
+.goldbtn:hover{
+    filter:brightness(130%);
+}
 .page{
     font-family: "Cherry Bomb One", system-ui;
       -webkit-text-fill-color: white; /* Will override color (regardless of order) */
@@ -72,6 +102,43 @@ button:hover{
     background-color: var(--sky-main);
 }
 
+/*X BUTTON UI*/
+.x-btn{
+    height: 87px;
+    width: 82px;
+    background-image: url('http://127.0.0.1:8000/site/x-button.png');
+}
+.x-btn:hover{
+    background-image: url('http://127.0.0.1:8000/site/x-button-press.png');    
+}
+
+/*TABS*/
+#tabs , #tabs-ul{
+    background-color: transparent !important;
+    border: none !important;
+}
+#tabs-ul{
+    margin-top: -42px !important;
+    margin-left: 20px !important;
+}
+.ui-tabs-panel{
+    max-height: 580px !important;
+    overflow-y: auto;
+    scrollbar-color: #74D4FF transparent !important;
+}
+
+.tabs-li{
+    border-radius: 10px 10px 0 0  !important;
+    border: none !important;
+    background-color: #DAF1F9 !important;
+}
+.ui-state-active, .ui-state-active a{
+    background-color: #fff !important;
+    color: #000 !important;
+    border-radius: 10px 10px 0 0  !important;
+}
+
+
 
 @keyframes floating {
     0%{
@@ -82,5 +149,14 @@ button:hover{
     }
     100%{
         transform: translate(0,-0px);
+    }
+}
+@media screen and (max-width: 768px){
+    .goldbtn{
+        max-width: 190px;
+        width: 100%;
+        height: 60px;
+        padding-top: 10px;
+        font-size: 25px;
     }
 }

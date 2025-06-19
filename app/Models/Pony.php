@@ -10,6 +10,8 @@ class Pony extends Model
     protected $fillable = [
         'ponyid',
         'token',
+        'isAlive',
+        'age',
         'stable_assign',
         'stable_ord',
         'sex',

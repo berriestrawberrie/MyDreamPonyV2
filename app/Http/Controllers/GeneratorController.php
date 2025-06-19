@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Events\ColorPonyImage;
+use App\Events\NewBabyPony;
 use App\Events\NewPony;
+use App\Listeners\MakeBabyImage;
 use App\Models\BuildPony;
 use App\Models\SpecialTrait;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class GeneratorController extends Controller
 {
@@ -141,28 +144,28 @@ class GeneratorController extends Controller
         //DETERMINE THE TRAIT # BY SEX AND BREED
         if ($request->input("breed") == "Unicorn" && $sex == "male") {
             $traitID = '"4"';
-            $breedID = '4';
+            $breedID = '12';
         } elseif ($request->input("breed") == "Unicorn" && $sex == "female") {
             $traitID = '"8"';
-            $breedID = '8';
+            $breedID = '12';
         } elseif ($request->input("breed") == "Dragon" && $sex == "female") {
             $traitID = '"1"';
-            $breedID = '1';
+            $breedID = '9';
         } elseif ($request->input("breed") == "Dragon" && $sex == "male") {
             $traitID = '"5"';
-            $breedID = '5';
+            $breedID = '9';
         } elseif ($request->input("breed") == "Avian" && $sex == "female") {
             $traitID = '"2"';
-            $breedID = '2';
+            $breedID = '10';
         } elseif ($request->input("breed") == "Avian" && $sex == "male") {
             $traitID = '"6"';
-            $breedID = '6';
+            $breedID = '10';
         } elseif ($request->input("breed") == "Kittling" && $sex == "female") {
             $traitID = '"3"';
-            $breedID = '3';
+            $breedID = '11';
         } elseif ($request->input("breed") == "Kittling" && $sex == "male") {
             $traitID = '"7"';
-            $breedID = '7';
+            $breedID = '11';
         }
 
         $newPony = array([
@@ -183,9 +186,10 @@ class GeneratorController extends Controller
         ]);
 
         event(new NewPony($newPony));
-        event(new ColorPonyImage($newPony));
+        event(new NewBabyPony($newPony));
 
-        return view('home')->with('success', 'A new ponys is born!');
-        // return redirect()->route('ponyProfile', ['colors' => $colorsJson]);
+        // $colorsJson = json_encode($finalcolors);
+        return redirect(route('nursery', ['userID' => Auth::user()->id]))->with('success', 'A new ponys is born!');
+        // return redirect()->route('ponyTester', ['colors' => $colorsJson]);
     } //END OF GEN FUNCTION
 }

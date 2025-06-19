@@ -7,7 +7,7 @@ Select A Breed!
 @section('page-content')
 
 
-<table class="text-xs md:text-sm text-center mb-10">
+<table class="mx-auto text-xs md:text-sm text-center mb-10">
     @for($i=3; $i>=0;$i--)
         <tr>
             <td><img src="{{asset('site/breeds/female'.$ponys[$i]["typeName"].'.png')}}"></td>

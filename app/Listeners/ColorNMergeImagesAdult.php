@@ -2,7 +2,7 @@
 
 namespace App\Listeners;
 
-use App\Events\ColorPonyImage;
+use App\Events\NewAdultPony;
 use App\Models\BuildPony;
 use App\Models\Pony;
 use App\Models\SpecialTrait;
@@ -14,7 +14,7 @@ class ColorNMergeImages
     /**
      * Create the event listener.
      */
-    public function __construct()
+    public function __construct(NewAdultPony $event)
     {
         //
     }
@@ -22,7 +22,7 @@ class ColorNMergeImages
     /**
      * Handle the event.
      */
-    public function handle(ColorPonyImage $event): void
+    public function handle(NewAdultPony $event): void
     {
         //
         $colors = ["eyes", "hair", "hair2", "accent", "accent2", "coat"];

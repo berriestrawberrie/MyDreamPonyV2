@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\BuildPony;
+use App\Models\Item;
+use App\Models\Pony;
 use App\Models\SpecialTrait;
 use Illuminate\Http\Request;
 
@@ -27,6 +29,37 @@ class ImageController extends Controller
         $check = '"' . $type . '"';
         $img = $rendered_buffer[0][$check];
 
+        return response($img)
+            ->header('Content-Type', 'image/png')
+            ->header('Cache-Control', 'max-age=2592000');
+    }
+
+    public function getPony($ponyid)
+    {
+        //get the pony image by ponyid
+        $rendered_buffer = Pony::where('ponyid', $ponyid)->get();
+        $img = $rendered_buffer[0]["image"];
+        return response($img)
+            ->header('Content-Type', 'image/png')
+            ->header('Cache-Control', 'max-age=2592000');
+    }
+
+    public function buildPony($ponyid, $layer)
+    {
+        //get the pony image by ponyid
+        $rendered_buffer = BuildPony::where('id', $ponyid)->get();
+        $img = $rendered_buffer[0][$layer];
+        return response($img)
+            ->header('Content-Type', 'image/png')
+            ->header('Cache-Control', 'max-age=2592000');
+    }
+
+    public function getItem($itemID, $type)
+    {
+
+        //get image id data by image id
+        $rendered_buffer = Item::where('itemid', $itemID)->get();
+        $img = $rendered_buffer[0][$type];
         return response($img)
             ->header('Content-Type', 'image/png')
             ->header('Cache-Control', 'max-age=2592000');
