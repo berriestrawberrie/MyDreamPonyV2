@@ -5,7 +5,7 @@
 @section('page-content')
 
 <div class="flex flex-col xl:flex-row xl:justify-evenly mb-[50px]">
-    <img src="/pony/image/{{$pony[0]["ponyid"]}}">
+    <img src="/pony/image/{{$pony[0]["ponyid"]}}?{{uniqid()}}">
     @include('pony.components.ponystats')
 </div>
 @include('pony.components.ponytabs')

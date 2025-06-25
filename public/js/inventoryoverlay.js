@@ -29,6 +29,7 @@ function changeDisplay2(id){
     document.getElementById("item_name2").innerHTML = itemname;
     document.getElementById("item_desc2").innerHTML = itemdesc;
     document.getElementById("tags_2").innerHTML = tags;
+    document.getElementById("petdress").value=id;
 }
 function changeDisplay3(id){
     //GET THE CURRENT ITEM INFORMATION
@@ -56,24 +57,27 @@ function changeDisplay4(id){
 }
 
 //FUNCTIONS WITH FEEDING THE PONY
-function feedPet(){
+function actionPet(action,button,label){
     
-    const div = document.getElementById("feedPet");
-    const btn = document.getElementById("equip1");
+    const div = document.getElementById(action);
+    const btn = document.getElementById(button);
 
     if(div.classList.contains("hidden")){
         div.classList.remove("hidden");
         btn.innerText = "Cancel";
     }else{
         div.classList.add("hidden");
-        btn.innerText = "Feed";
+        btn.innerText = label;
     }
 
 }
-function feedWhichPet(){
-    const pony = document.getElementById("feedPetSelect");
 
-    document.getElementById("feedPetImg").src = `/pony/image/${pony.value}`;
+function actionWhichPet(id){
+    const select = id+"Select";
+    const img = id+"Img";
+    const pony = document.getElementById(select);
+
+    document.getElementById(img).src = `/pony/image/${pony.value}`;
 }
 
 

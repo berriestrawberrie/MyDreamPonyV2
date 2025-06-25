@@ -2,6 +2,7 @@
 
 use App\Events\PonyHungry;
 use App\Events\PonyReaper;
+use App\Http\Controllers\ContestController;
 use App\Http\Controllers\GeneratorController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ItemController;
@@ -41,6 +42,12 @@ Route::middleware([LoggedInUser::class])->group(function () {
     Route::post('/newstable', [UserController::class, 'updateStables'])->name('newstable');
     Route::get('/inventory/{userID}', [UserController::class, 'inventoryOverlay']);
     Route::post('/feedpet', [ItemController::class, 'feedPet']);
+    Route::post('/dressPony', [ItemController::class, 'dressPony']);
+
+    //CONTESTS ROUTES
+    Route::get('/contests', [ContestController::class, 'contests']);
+    Route::get('/createContest', [ContestController::class, 'createContest']);
+    Route::post('/scheduleContest', [ContestController::class, 'scheduleContest']);
 });
 
 

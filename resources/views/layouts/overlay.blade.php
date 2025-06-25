@@ -12,8 +12,6 @@
     @include('layouts.topbanner')
 
     @include('layouts.foreground')
-
-    @include('layouts.alerts')
     <div class='w-full flex'>
 
 

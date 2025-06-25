@@ -8,13 +8,29 @@
             <div id="tags_2">
 
             </div>
-            <ul class="w-full flex justify-evenly bg-sky-100 absolute bottom-2">
-                <li class="hover:text-white" id="equip1">Equip</li>
-                <li class="hover:text-white" id="use1">Use</li>                        
-                <li class="hover:text-white" id="shop1">Add to Shop</li>
-                <li class="hover:text-white" id="gallery1">Add to Gallery</li>
-                <li class="hover:text-white" id="transfer1">Transfer</li>
+            <ul class="w-full flex justify-evenly absolute bottom-2">
+                <li class="hover:text-white" ><button id="equip2" onclick="actionPet('dressPet','equip2','Equip')">Equip</button></li>               
+                <li class="hover:text-white" id="shop2">Add to Shop</li>
+                <li class="hover:text-white" id="gallery2">Add to Gallery</li>
+                <li class="hover:text-white" id="transfer2">Transfer</li>
             </ul>
+
+            <div id="dressPet" class="hidden mb-[50px]">
+                <div class="flex">
+                    <form action="/dressPony" method="POST">
+                        @csrf
+                        @method('POST')
+                    <input number id="petdress" name="petdress" class="hidden">
+                    <select id="dressPetSelect" name="ponyID" onchange="actionWhichPet('dressPet')">
+                    @foreach($ponys as $pony)
+                    <option value="{{$pony->ponyid}}">{{$pony->name}}</option>
+                    @endforeach
+                    </select>
+                    <button type="submit">Confirm</button>
+                    </form>
+                </div>
+                    <img id="dressPetImg" class="w-[359px] h-[291px]" src="/pony/image/{{$ponys[0]["ponyid"]}}">
+            </div>
         </div>
         <!--SINGLE ITEM IMAGE-->
         <div>

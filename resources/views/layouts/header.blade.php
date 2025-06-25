@@ -2,7 +2,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
-    @vite('resources/css/stables.css')
     
     <title>Document</title>
 
@@ -18,4 +17,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cherry+Bomb+One&family=Eagle+Lake&display=swap" rel="stylesheet">
 
+    <!--FONT AWESOME-->
+    <script src="https://kit.fontawesome.com/df8ac4cd23.js" crossorigin="anonymous"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}">

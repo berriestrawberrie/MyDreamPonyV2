@@ -9,7 +9,7 @@
 
             </div>
             <ul class="w-full flex justify-evenly absolute bottom-2">
-                <li class="hover:text-white"><button onclick="feedPet()" id="equip1">Feed</button></li>                  
+                <li class="hover:text-white"><button onclick="actionPet('feedPet','equip1','Feed')" id="equip1">Feed</button></li>                  
                 <li class="hover:text-white  bg-sky-100 p-2" id="shop1">Add to Shop</li>
                 <li class="hover:text-white  bg-sky-100 p-2" id="gallery1">Add to Gallery</li>
                 <li class="hover:text-white  bg-sky-100 p-2" id="transfer1">Transfer</li>
@@ -20,7 +20,7 @@
                             @csrf
                             @method('POST')
                         <input number id="foodfed" name="foodfed" class="hidden">
-                        <select id="feedPetSelect" name="ponyfed" onchange="feedWhichPet()">
+                        <select id="feedPetSelect" name="ponyfed" onchange="actionWhichPet('feedPet')">
                         @foreach($ponys as $pony)
                         <option value="{{$pony->ponyid}}">{{$pony->name}}</option>
                         @endforeach

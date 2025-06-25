@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.apptransparent')
 
 @section('page-title')
     {{$user[0]["name"]}}
@@ -22,9 +22,10 @@
             </div>
         </div>
         <!--Player Profile-->
-        <div class="w-full lg:w-1/2 relative ">
+        <div class="w-full lg:w-1/2 relative  bg-white rounded-4xl">
 
                 <a href="/nursery/{{Auth::user()->id}}"><button>Nursery</button></a>
+                <a href=""><button>Contests</button></a>
             </div>
             
         </div><!--END OF PLAYER PROFILE-->

@@ -10,6 +10,7 @@
     <li class="tabs-li"><a href="#tabs-3">Outfits</a></li>
     <li class="tabs-li"><a href="#tabs-4">Consumeables</a></li>
   </ul>
+  @include('layouts.alerts')
   <div id="tabs-1">
     @include('user.components.food')
   </div>

@@ -13,6 +13,7 @@
         <li class="hover:-translate-y-[20px] transition duration-300 w-[50px] md:w-[80px]">
             <a href="/inventory/{{Auth::user()->id}}"><img src="{{asset('site/chest.png')}}"></a></li>
         <li class="hover:-translate-y-[20px] transition duration-300 w-[50px] md:w-[80px]"><img src="{{asset('site/map2.png')}}"></li>
+        <li class="hover:-translate-y-[20px] transition duration-300 w-[50px] md:w-[80px]"><a href="/contests"><img src="{{asset('site/trophy.png')}}"></a></li>
     </ul>
     @endif
 
