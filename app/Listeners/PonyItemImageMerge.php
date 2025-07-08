@@ -55,42 +55,14 @@ class PonyItemImageMerge
             imagecopy($ponyImg, $headImg, 0, 0, 0, 0, 599, 485);
         }
         //MERGE THE IMAGES IN ORDER IF ITEM EQUIPPED
-        if ($face) {
-            $face = Item::where('itemid', $pony[0]["Faceware"])->get();
-            $faceImg = imagecreatefromstring($face[0][$type]);
+        if ($hoove) {
+            $hoove = Item::where('itemid', $pony[0]["Hooveware"])->get();
+            $hooveImg = imagecreatefromstring($hoove[0][$type]);
             header('Content-Type: image/png');
             header('Cache-Control', 'max-age=2592000');
-            imageAlphaBlending($faceImg, true);
-            imageSaveAlpha($faceImg, true);
-            imagecopy($ponyImg, $faceImg, 0, 0, 0, 0, 599, 485);
-        }
-
-        if ($neck) {
-            $neck = Item::where('itemid', $pony[0]["Neckware"])->get();
-            $neckImg = imagecreatefromstring($neck[0][$type]);
-            header('Content-Type: image/png');
-            header('Cache-Control', 'max-age=2592000');
-            imageAlphaBlending($neckImg, true);
-            imageSaveAlpha($neckImg, true);
-            imagecopy($ponyImg, $neckImg, 0, 0, 0, 0, 599, 485);
-        }
-        if ($body) {
-            $body = Item::where('itemid', $pony[0]["Bodyware"])->get();
-            $bodyImg = imagecreatefromstring($body[0][$type]);
-            header('Content-Type: image/png');
-            header('Cache-Control', 'max-age=2592000');
-            imageAlphaBlending($bodyImg, true);
-            imageSaveAlpha($bodyImg, true);
-            imagecopy($ponyImg, $bodyImg, 0, 0, 0, 0, 599, 485);
-        }
-        if ($tail) {
-            $tail = Item::where('itemid', $pony[0]["Tailware"])->get();
-            $tailImg = imagecreatefromstring($tail[0][$type]);
-            header('Content-Type: image/png');
-            header('Cache-Control', 'max-age=2592000');
-            imageAlphaBlending($tailImg, true);
-            imageSaveAlpha($tailImg, true);
-            imagecopy($ponyImg, $tailImg, 0, 0, 0, 0, 599, 485);
+            imageAlphaBlending($hooveImg, true);
+            imageSaveAlpha($hooveImg, true);
+            imagecopy($ponyImg, $hooveImg, 0, 0, 0, 0, 599, 485);
         }
         if ($leg) {
             $leg =  Item::where('itemid', $pony[0]["Legware"])->get();
@@ -101,15 +73,45 @@ class PonyItemImageMerge
             imageSaveAlpha($legImg, true);
             imagecopy($ponyImg, $legImg, 0, 0, 0, 0, 599, 485);
         }
-        if ($hoove) {
-            $hoove = Item::where('itemid', $pony[0]["Hooveware"])->get();
-            $hooveImg = imagecreatefromstring($hoove[0][$type]);
+        if ($tail) {
+            $tail = Item::where('itemid', $pony[0]["Tailware"])->get();
+            $tailImg = imagecreatefromstring($tail[0][$type]);
             header('Content-Type: image/png');
             header('Cache-Control', 'max-age=2592000');
-            imageAlphaBlending($hooveImg, true);
-            imageSaveAlpha($hooveImg, true);
-            imagecopy($ponyImg, $hooveImg, 0, 0, 0, 0, 599, 485);
+            imageAlphaBlending($tailImg, true);
+            imageSaveAlpha($tailImg, true);
+            imagecopy($ponyImg, $tailImg, 0, 0, 0, 0, 599, 485);
         }
+        if ($body) {
+            $body = Item::where('itemid', $pony[0]["Bodyware"])->get();
+            $bodyImg = imagecreatefromstring($body[0][$type]);
+            header('Content-Type: image/png');
+            header('Cache-Control', 'max-age=2592000');
+            imageAlphaBlending($bodyImg, true);
+            imageSaveAlpha($bodyImg, true);
+            imagecopy($ponyImg, $bodyImg, 0, 0, 0, 0, 599, 485);
+        }
+        if ($neck) {
+            $neck = Item::where('itemid', $pony[0]["Neckware"])->get();
+            $neckImg = imagecreatefromstring($neck[0][$type]);
+            header('Content-Type: image/png');
+            header('Cache-Control', 'max-age=2592000');
+            imageAlphaBlending($neckImg, true);
+            imageSaveAlpha($neckImg, true);
+            imagecopy($ponyImg, $neckImg, 0, 0, 0, 0, 599, 485);
+        }
+        if ($face) {
+            $face = Item::where('itemid', $pony[0]["Faceware"])->get();
+            $faceImg = imagecreatefromstring($face[0][$type]);
+            header('Content-Type: image/png');
+            header('Cache-Control', 'max-age=2592000');
+            imageAlphaBlending($faceImg, true);
+            imageSaveAlpha($faceImg, true);
+            imagecopy($ponyImg, $faceImg, 0, 0, 0, 0, 599, 485);
+        }
+
+
+
 
 
         //WRITE THE IMAGE TO FILE FOR TEMPORARILY
@@ -126,6 +128,5 @@ class PonyItemImageMerge
 
         //CLEAN UP GD IMAGES
         imagedestroy($ponyImg);
-        imagedestroy($faceImg);
     }
 }

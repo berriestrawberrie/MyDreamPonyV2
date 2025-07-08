@@ -20,6 +20,9 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'birthday',
+        'arena_level',
+        'arena_max',
+        'arena_cost',
         'email',
         'password',
         'ponygold',

@@ -45,6 +45,8 @@ class Pony extends Model
         'exp',
         'pregnant',
         'nxt_contest',
+        'contest',
+        'contest_group',
         'ownerid',
         'genes',
         'lineage'

@@ -10,6 +10,7 @@ use App\Http\Controllers\PonyController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\LoggedInUser;
 use Illuminate\Support\Facades\Route;
+use TeamTeaTime\Forum\Http\Controllers\Api\CategoryController;
 
 //PUBLIC ROUTES NOT REQUIRING LOGIN
 Route::get('/', function () {
@@ -25,6 +26,9 @@ Route::get('/pony/image/{ponyid}', [ImageController::class, 'getPony']);
 Route::get('/ponyprofile/{ponyid}', [PonyController::class, 'ponyProfile'])->name('pony.profile');
 Route::get('/item/{itemID}/{type}', [ImageController::class, 'getItem']);
 Route::get('buildpony/layer/{ponyid}/{layer}', [ImageController::class, 'buildPony']);
+Route::get('/forum', function () {
+    return view('forum.category');
+});
 
 //AUTHORIZED USER MIDDLEWARE
 Route::middleware([LoggedInUser::class])->group(function () {
@@ -45,10 +49,13 @@ Route::middleware([LoggedInUser::class])->group(function () {
     Route::post('/dressPony', [ItemController::class, 'dressPony']);
 
     //CONTESTS ROUTES
-    Route::get('/contests', [ContestController::class, 'contests']);
-    Route::get('/createContest', [ContestController::class, 'createContest']);
+    Route::get('/contests', [ContestController::class, 'contests'])->name('contest.home');
     Route::post('/scheduleContest', [ContestController::class, 'scheduleContest']);
+    Route::get('/joincontest/{token}', [ContestController::class, 'joinContest'])->name('join.contest');
+    Route::post('/signup/{token}', [ContestController::class, 'signUp']);
+    Route::post('/cancel/{token}', [ContestController::class, 'cancelContest']);
 });
+
 
 
 Route::get('/test', function () {

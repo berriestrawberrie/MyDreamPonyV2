@@ -2,6 +2,8 @@
     --sky-main: #5ac3ff;
     --sky-accent: #d3efff;
     --sky-white: #fff;
+    --error: #f15555;
+    --error-accent:#ff9191;
 }
 
 .register{
@@ -27,6 +29,18 @@ button:hover{
     background-color: var(--sky-white);
     color: var(--sky-main);
     border:2px solid var(--sky-main);
+}
+.disabled-btn{
+    background-color:var(--error-accent);
+    border:2px solid var(--error);
+    padding: 5px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+.disabled-btn:hover{
+    background-color: var(--error);
+    color: var(--sky-white);
+    border:2px solid var(--error);
 }
 .scroll {
   overflow: scroll;
@@ -74,6 +88,9 @@ button:hover{
       -webkit-text-fill-color: white; /* Will override color (regardless of order) */
       -webkit-text-stroke: 1px #7bc4ff;
 }
+.bubble{
+        font-family: "Cherry Bomb One", system-ui;
+}
 
   .selection-icon img {
     width: 80px;
@@ -107,6 +124,7 @@ button:hover{
     height: 87px;
     width: 82px;
     background-image: url('http://127.0.0.1:8000/site/x-button.png');
+    background-size:contain;
 }
 .x-btn:hover{
     background-image: url('http://127.0.0.1:8000/site/x-button-press.png');    
@@ -118,11 +136,11 @@ button:hover{
     border: none !important;
 }
 #tabs-ul{
-    margin-top: -42px !important;
-    margin-left: 20px !important;
+    margin-top: -41px !important;
+    margin-left: 12px !important;
 }
 .ui-tabs-panel{
-    max-height: 580px !important;
+    max-height: 600px !important;
     overflow-y: auto;
     scrollbar-color: #74D4FF transparent !important;
 }
@@ -137,7 +155,17 @@ button:hover{
     color: #000 !important;
     border-radius: 10px 10px 0 0  !important;
 }
-
+/*CONTEST BANNERS*/
+.contest-banner{
+    max-width: 200px;
+    max-height: 70px;
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+}
+.contest-icon{
+    width: 60px;
+}
 
 
 @keyframes floating {
@@ -159,4 +187,15 @@ button:hover{
         padding-top: 10px;
         font-size: 25px;
     }
+    .ui-tabs-panel{
+        max-height: 500px !important;
+        overflow-y: auto;
+        scrollbar-color: #74D4FF transparent !important;
+    }
+    .x-btn{
+        height: 67px;
+        width: 62px;
+    }
 }
+
+

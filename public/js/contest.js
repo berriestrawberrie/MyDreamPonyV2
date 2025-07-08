@@ -7,6 +7,26 @@ const allSplit = document.getElementById("adultsplits5");
 const allUnl = document.getElementById("adultunlimit5");
 const allBaby = document.getElementById("baby5");
 
+//ACCORDION
+
+  $( function() {
+    $( "#accordion" ).accordion({
+        collapsible: true ,
+        active: false
+    });
+  } );
+
+$( function() {
+    $( "#accordion2" ).accordion({
+        collapsible: true ,
+        active: false
+    });
+    } );
+
+
+
+
+
 function displayContest(){
 
     if(selected.value === "split"){
@@ -100,4 +120,11 @@ allBaby.addEventListener("click", ()=>{
                 e.checked = false;
             });
     }
+});
+
+//SIGNUP ALL ADULTS FOR CONTEST
+document.getElementById("massAdult").addEventListener("click", ()=>{
+    document.querySelectorAll('input[type="checkbox"]').forEach((e)=>{
+        e.checked=true;
+    })
 });

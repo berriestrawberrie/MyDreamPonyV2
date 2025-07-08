@@ -11,12 +11,12 @@
         <!--MONEY DISPLAY-->
         <div class="bg-white w-[90px] md:w-[150px] rounded-2xl flex justify-between items-center pe-2">
             <img class="w-[20px] md:w-[40px] -mt-3 -ms-1" src="{{asset('site/coiny2.png')}}">
-            <span class='text-xs md:text-base'>$999,999,999</span>
+            <span class='text-xs md:text-base'>{{Auth::user()->ponygold}}</span>
         </div>
         <!--CRYSTAL HEART DISPLAY-->
         <div class="bg-white w-[90px] md:w-[150px] rounded-2xl flex justify-between items-center pe-2 ">
             <img class="w-[20px] md:w-[40px] -mt-3 -ms-1"src="{{asset('site/crystalheart2.png')}}">
-            <span class='text-xs md:text-base'>0</span>
+            <span class='text-xs md:text-base'>{{Auth::user()->crystalheart}}</span>
         </div>
     </div>
     @endif

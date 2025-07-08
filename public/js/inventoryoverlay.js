@@ -4,12 +4,16 @@
   } );
 const typeFilter = document.getElementById("filter-type");
 
+
+
+
   //CHANGE SINGLE ITEM DISPLAY
 function changeDisplay1(id){
     //GET THE CURRENT ITEM INFORMATION
     const itemname = document.getElementById(`itemname${id}`).innerText;
     const itemdesc = document.getElementById(`itemdesc${id}`).innerText;
     const tags = document.getElementById(`tags${id}`).innerHTML;   
+    const actionBtn = document.getElementById("equip1");
 
     //CHANGE THE SINGLE ITEM DISPLAYED INFORMATION
     document.getElementById("single-img1").src = "/item/"+ id +"/icon";
@@ -17,60 +21,100 @@ function changeDisplay1(id){
     document.getElementById("item_desc1").innerHTML = itemdesc;
     document.getElementById("tags_1").innerHTML = tags;
     document.getElementById("foodfed").value = id;
+
+    //TOGGLE THE FEED BUTTON
+    if(itemname == "Item Name"){
+        actionBtn.classList.add("hidden");
+    }else{
+        actionBtn.classList.remove("hidden");
+    }
 }
 function changeDisplay2(id){
     //GET THE CURRENT ITEM INFORMATION
     const itemname = document.getElementById(`itemname${id}`).innerText;
     const itemdesc = document.getElementById(`itemdesc${id}`).innerText;
-    const tags = document.getElementById(`tags${id}`).innerHTML;   
-
+    const tags = document.getElementById(`tags${id}`).innerHTML; 
+    const actionBtn = document.getElementById("equip2");  
+   
     //CHANGE THE SINGLE ITEM DISPLAYED INFORMATION
     document.getElementById("single-img2").src = "/item/"+ id +"/icon";
     document.getElementById("item_name2").innerHTML = itemname;
     document.getElementById("item_desc2").innerHTML = itemdesc;
     document.getElementById("tags_2").innerHTML = tags;
     document.getElementById("petdress").value=id;
+    
+    //TOGGLE THE FEED BUTTON
+    if(itemname == "Item Name"){
+        actionBtn.classList.add("hidden");
+    }else{
+        actionBtn.classList.remove("hidden");
+    }
 }
 function changeDisplay3(id){
     //GET THE CURRENT ITEM INFORMATION
     const itemname = document.getElementById(`itemname${id}`).innerText;
     const itemdesc = document.getElementById(`itemdesc${id}`).innerText;
     const tags = document.getElementById(`tags${id}`).innerHTML;   
+    const actionBtn = document.getElementById("equip3");  
+
 
     //CHANGE THE SINGLE ITEM DISPLAYED INFORMATION
     document.getElementById("single-img3").src = "/item/"+ id +"/icon";
     document.getElementById("item_name3").innerHTML = itemname;
     document.getElementById("item_desc3").innerHTML = itemdesc;
     document.getElementById("tags_3").innerHTML = tags;
+
+    //TOGGLE THE FEED BUTTON
+    if(itemname == "Item Name"){
+        actionBtn.classList.add("hidden");
+    }else{
+        actionBtn.classList.remove("hidden");
+    }
 }
 function changeDisplay4(id){
     //GET THE CURRENT ITEM INFORMATION
     const itemname = document.getElementById(`itemname${id}`).innerText;
     const itemdesc = document.getElementById(`itemdesc${id}`).innerText;
     const tags = document.getElementById(`tags${id}`).innerHTML;   
+    const actionBtn = document.getElementById("equip4");  
+
 
     //CHANGE THE SINGLE ITEM DISPLAYED INFORMATION
     document.getElementById("single-img4").src = "/item/"+ id +"/icon";
     document.getElementById("item_name4").innerHTML = itemname;
     document.getElementById("item_desc4").innerHTML = itemdesc;
     document.getElementById("tags_4").innerHTML = tags;
+    //TOGGLE THE FEED BUTTON
+    if(itemname == "Item Name"){
+        actionBtn.classList.add("hidden");
+    }else{
+        actionBtn.classList.remove("hidden");
+    }
 }
 
 //FUNCTIONS WITH FEEDING THE PONY
-function actionPet(action,button,label){
+function actionPet(action,desc,cancel){
     
     const div = document.getElementById(action);
-    const btn = document.getElementById(button);
+    const itemDesc = document.getElementById(desc);
+    const cancelBtn = document.getElementById(cancel);
 
+    //TOGGLE THE PONY SELECTION
     if(div.classList.contains("hidden")){
         div.classList.remove("hidden");
-        btn.innerText = "Cancel";
-    }else{
-        div.classList.add("hidden");
-        btn.innerText = label;
+        itemDesc.classList.add("hidden");
     }
 
+    //ACTION THE CANCEL BUTTON
+    cancelBtn.addEventListener("click", ()=>{
+    div.classList.add("hidden");
+    itemDesc.classList.remove("hidden");
+    }); 
+    
+
 }
+
+
 
 function actionWhichPet(id){
     const select = id+"Select";

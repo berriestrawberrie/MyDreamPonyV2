@@ -9,21 +9,26 @@ class Contest extends Model
     //
     protected $fillable = [
         'userid',
+        'token',
+        'title',
         'runtime',
+        'contest_attribute',
+        'fee',
+        'maxlimit',
         'splits250',
         'updated_at',
         'splits500',
         'splits750',
         'splits1000',
-        'unlimited1',
-        'unlimited2',
-        'unlimited3',
-        'unlimited4',
+        'unlimit1',
+        'unlimit2',
+        'unlimit3',
+        'unlimit4',
         'baby1',
         'baby2',
         'baby3',
         'baby4',
-        'photo',
+        'banner',
         'contest_type'
 
     ];
