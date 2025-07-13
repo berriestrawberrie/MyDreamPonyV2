@@ -3,6 +3,7 @@
 use App\Events\PonyHungry;
 use App\Events\PonyReaper;
 use App\Http\Controllers\ContestController;
+use App\Http\Controllers\ForumController;
 use App\Http\Controllers\GeneratorController;
 use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ItemController;
@@ -10,7 +11,7 @@ use App\Http\Controllers\PonyController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\LoggedInUser;
 use Illuminate\Support\Facades\Route;
-use TeamTeaTime\Forum\Http\Controllers\Api\CategoryController;
+
 
 //PUBLIC ROUTES NOT REQUIRING LOGIN
 Route::get('/', function () {
@@ -26,9 +27,16 @@ Route::get('/pony/image/{ponyid}', [ImageController::class, 'getPony']);
 Route::get('/ponyprofile/{ponyid}', [PonyController::class, 'ponyProfile'])->name('pony.profile');
 Route::get('/item/{itemID}/{type}', [ImageController::class, 'getItem']);
 Route::get('buildpony/layer/{ponyid}/{layer}', [ImageController::class, 'buildPony']);
-Route::get('/forum', function () {
-    return view('forum.category');
-});
+
+//FORUMS
+Route::get('/forums', [ForumController::class, 'forumHome']);
+Route::get('/forums/{name}/{category_id}', [ForumController::class, 'categoryTopics']);
+Route::get('/post/{category}/{topic_id}', [ForumController::class, 'getPost'])->name('topic');
+Route::post('/newtopic/{category_id}', [ForumController::class, 'newTopic']);
+Route::post('/newpost/{category_id}/{topic_id}/', [ForumController::class, 'newPost']);
+Route::get('/editpost/{post_id}', [ForumController::class, 'editPost']);
+Route::post('/updatepost/{post_id}', [ForumController::class, 'submitEdit']);
+
 
 //AUTHORIZED USER MIDDLEWARE
 Route::middleware([LoggedInUser::class])->group(function () {

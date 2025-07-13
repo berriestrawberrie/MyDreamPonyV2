@@ -5,7 +5,12 @@
     --error: #f15555;
     --error-accent:#ff9191;
 }
-
+a{
+    text-decoration: underline;
+}
+textarea{
+    resize: none;
+}
 .register{
     margin: 10px 0;
     display:flex;
@@ -96,6 +101,22 @@ button:hover{
     width: 80px;
 
   }
+/*FORUM STYLING*/
+.forum-quote{
+    font-style:italic;
+    background-color: var(--sky-accent);
+    padding-left: 5px;
+    padding-right: 5px;
+    display: block;
+    text-align: center;
+}
+.forum-quote::before{
+    content: open-quote;
+}
+.forum-quote::after{
+    content: close-quote;
+}
+
 
 /* HIDE RADIO */
 [type=radio] { 

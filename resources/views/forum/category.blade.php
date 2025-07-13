@@ -5,49 +5,103 @@ Forums
 @endsection
 
 @section('page-content')
-<!--HEADER -->
-<div class="bg-cloud h-[40px] -mt-6 rounded-2xl ">
-<ul class="flex ms-8">
-    <li class="hover:bg-white h-[40px] px-3">Main</li>
-    <li class="hover:bg-white h-[40px] px-3">Latest</li>
-    <li class="hover:bg-white h-[40px] px-3">Saved</li>
-    <li class="hover:bg-white h-[40px] px-3">My Posts</li>
-</ul>
-</div>
-<div class="mx-auto w-4/5">
+
+<div class="w-full lg:mx-auto lg:w-4/5">
     <!--CATEGORIES-->
-    <h3>News & Announcements</h3>
         <div>
-            <table class="border w-full">
-                <tr>
-                    <td>
-                        <img class="w-[90px]" src="{{asset('site/news.png')}}">
-                    </td>
-                    <td>
-                        <span>Category Title </span>
-                        <p>Category description will be here</p>
-                    </td>
-                    <td>Thread#</td>
-                    <td>Post#</td>
-                    <td class="text-right"><span>Lastest Post</span>
-                        <p>Welcome to blah blah..</p>
-                    </td>
-                </tr>
-                                <tr>
-                    <td>
-                        <img class="w-[90px]" src="{{asset('site/cooking.png')}}">
-                    </td>
-                    <td>
-                        <span>Category Title </span>
-                        <p>Category description will be here</p>
-                    </td>
-                    <td>Thread#</td>
-                    <td>Post#</td>
-                    <td class="text-right"><span>Lastest Post</span>
-                        <p>Welcome to blah blah..</p>
-                    </td>
-                </tr>
+            <h3 class="bubble text-3xl" id="news">News & Announcements</h3>
+            <table class=" w-full text-center table-auto mt-4">
+                @foreach($newsCat as $item)
+                    <tr class="bg-white/60 border-b-4 border-sky-300 hover:bg-white">
+                        <td class="">
+                            <a href="../forums/{{$item->id}}/{{$item->name}}"><img class="mx-auto max-w-[40px] lg:max-w-[90px]" src="{{asset('forum/'.$item->icon)}}"></a>
+                        </td>
+                        <td class="text-left ps-1">
+                           <a href="../forums/{{$item->id}}/{{$item->name}}"><span class="text-sm font-bold lg:text-xl">{{$item->name}} </span></a>
+                            <p class="text-xs lg:text-base">{{$item->desc}}</p>
+                        </td>
+                        <td>
+                            <span class="text-xs">999,999 Topics</span>
+                        </td>
+                        <td class="">
+                            <span class="text-xs">999,999 Topics</span>
+                        </td>
+                        <td class="hidden lg:block text-right"><span>Lastest Post</span>
+                            <p>Welcome to blah blah..</p>
+                        </td>
+                    </tr>
+                @endforeach
             </table>
+            <h3 class="bubble text-3xl" id="chat">Chats & Introductions</h3>
+            <table class=" w-full text-center table-auto mt-4">
+                @foreach($chatCat as $item)
+                    <tr class="bg-white/60 border-b-4 border-sky-300 hover:bg-white">
+                        <td class="">
+                            <a href="../forums/{{$item->id}}/{{$item->name}}"><img class="mx-auto max-w-[40px] lg:max-w-[90px]" src="{{asset('forum/'.$item->icon)}}"></a>
+                        </td>
+                        <td class="text-left ps-1">
+                            <a href="../forums/{{$item->id}}/{{$item->name}}"><span class="text-sm font-bold lg:text-xl">{{$item->name}} </span></a>
+                            <p class="text-xs lg:text-base">{{$item->desc}}</p>
+                        </td>
+                        <td>
+                            <span class="text-xs">999,999 Topics</span>
+                        </td>
+                        <td class="">
+                            <span class="text-xs">999,999 Topics</span>
+                        </td>
+                        <td class="hidden lg:block text-right"><span>Lastest Post</span>
+                            <p>Welcome to blah blah..</p>
+                        </td>
+                    </tr>
+                @endforeach
+            </table>
+            <h3 class="bubble text-3xl" id="pony">World Building</h3>
+            <table class=" w-full text-center table-auto mt-4">
+                @foreach($worldCat as $item)
+                    <tr class="bg-white/60 border-b-4 border-sky-300 hover:bg-white">
+                        <td class="">
+                            <img class="mx-auto max-w-[40px] lg:max-w-[90px]" src="{{asset('forum/'.$item->icon)}}">
+                        </td>
+                        <td class="text-left ps-1">
+                            <span class="text-sm font-bold lg:text-xl">{{$item->name}} </span>
+                            <p class="text-xs lg:text-base">{{$item->desc}}</p>
+                        </td>
+                        <td>
+                            <span class="text-xs">999,999 Topics</span>
+                        </td>
+                        <td class="">
+                            <span class="text-xs">999,999 Topics</span>
+                        </td>
+                        <td class="hidden lg:block text-right"><span>Lastest Post</span>
+                            <p>Welcome to blah blah..</p>
+                        </td>
+                    </tr>
+                @endforeach
+            </table>
+            <h3 class="bubble text-3xl" id="game">Game Mechanics</h3>
+            <table class=" w-full text-center table-auto mt-4">
+                @foreach($gameCat as $item)
+                    <tr class="bg-white/60 border-b-4 border-sky-300 hover:bg-white">
+                        <td class="">
+                            <a href="../forums/{{$item->id}}/{{$item->name}}"><img class="mx-auto max-w-[40px] lg:max-w-[90px]" src="{{asset('forum/'.$item->icon)}}"></a>
+                        </td>
+                        <td class="text-left ps-1">
+                            <a href="../forums/{{$item->id}}/{{$item->name}}"><span class="text-sm font-bold lg:text-xl">{{$item->name}} </span></a>
+                            <p class="text-xs lg:text-base">{{$item->desc}}</p>
+                        </td>
+                        <td>
+                            <span class="text-xs">999,999 Topics</span>
+                        </td>
+                        <td class="">
+                            <span class="text-xs">999,999 Topics</span>
+                        </td>
+                        <td class="hidden lg:block text-right"><span>Lastest Post</span>
+                            <p>Welcome to blah blah..</p>
+                        </td>
+                    </tr>
+                @endforeach
+            </table>
+
         </div>
 </div>
 
