@@ -14,7 +14,7 @@ Forums
                 @foreach($newsCat as $item)
                     <tr class="bg-white/60 border-b-4 border-sky-300 hover:bg-white">
                         <td class="">
-                            <a href="../forums/{{$item->id}}/{{$item->name}}"><img class="mx-auto max-w-[40px] lg:max-w-[90px]" src="{{asset('forum/'.$item->icon)}}"></a>
+                            <a href="../forums/{{$item->id}}/{{$item->name}}"><img class="mx-auto max-w-[40px] lg:max-w-[90px]" src="{{asset('forum/'.$item->icon)}}" loading="lazy" alt="{{$item->name}}" width="90" height="90"></a>
                         </td>
                         <td class="text-left ps-1">
                            <a href="../forums/{{$item->id}}/{{$item->name}}"><span class="text-sm font-bold lg:text-xl">{{$item->name}} </span></a>
@@ -37,7 +37,7 @@ Forums
                 @foreach($chatCat as $item)
                     <tr class="bg-white/60 border-b-4 border-sky-300 hover:bg-white">
                         <td class="">
-                            <a href="../forums/{{$item->id}}/{{$item->name}}"><img class="mx-auto max-w-[40px] lg:max-w-[90px]" src="{{asset('forum/'.$item->icon)}}"></a>
+                            <a href="../forums/{{$item->id}}/{{$item->name}}"><img class="mx-auto max-w-[40px] lg:max-w-[90px]" src="{{asset('forum/'.$item->icon)}}" loading="lazy" alt="{{$item->name}}" width="90" height="90"></a>
                         </td>
                         <td class="text-left ps-1">
                             <a href="../forums/{{$item->id}}/{{$item->name}}"><span class="text-sm font-bold lg:text-xl">{{$item->name}} </span></a>
@@ -60,7 +60,7 @@ Forums
                 @foreach($worldCat as $item)
                     <tr class="bg-white/60 border-b-4 border-sky-300 hover:bg-white">
                         <td class="">
-                            <img class="mx-auto max-w-[40px] lg:max-w-[90px]" src="{{asset('forum/'.$item->icon)}}">
+                            <img class="mx-auto max-w-[40px] lg:max-w-[90px]" src="{{asset('forum/'.$item->icon)}}" loading="lazy" alt="{{$item->name}}" width="90" height="90">
                         </td>
                         <td class="text-left ps-1">
                             <span class="text-sm font-bold lg:text-xl">{{$item->name}} </span>
@@ -83,7 +83,7 @@ Forums
                 @foreach($gameCat as $item)
                     <tr class="bg-white/60 border-b-4 border-sky-300 hover:bg-white">
                         <td class="">
-                            <a href="../forums/{{$item->id}}/{{$item->name}}"><img class="mx-auto max-w-[40px] lg:max-w-[90px]" src="{{asset('forum/'.$item->icon)}}"></a>
+                            <a href="../forums/{{$item->id}}/{{$item->name}}"><img class="mx-auto max-w-[40px] lg:max-w-[90px]" src="{{asset('forum/'.$item->icon)}}" loading="lazy" alt="{{$item->name}}" width="90" height="90"></a>
                         </td>
                         <td class="text-left ps-1">
                             <a href="../forums/{{$item->id}}/{{$item->name}}"><span class="text-sm font-bold lg:text-xl">{{$item->name}} </span></a>

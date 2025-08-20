@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\NewAdultPony;
 use App\Models\Pony;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PonyController extends Controller
 {
@@ -17,7 +19,77 @@ class PonyController extends Controller
     {
 
         $pony = Pony::where('ponyid', $ponyid)->get();
+        $owned = Pony::where('ownerid', Auth::user()->id)
+            ->where('sex', '!=', $pony[0]["sex"])
+            ->get();
 
-        return view('pony.ponyprofile', compact('pony'));
+        return view('pony.ponyprofile', compact('pony', 'owned'));
+    }
+    public function agePony(Request $request)
+    {
+
+        $getPony = Pony::where('ponyid', $request->input('ponyid'))->get();
+
+        //DETERMINE THE TRAIT # BY SEX AND BREED
+        if ($getPony[0]["typeid"] == 12 && $getPony[0]["sex"] == "male") {
+            $traitID = '"4"';
+            $breedID = '4';
+            $typeid = 4;
+        } elseif ($getPony[0]["typeid"] == 12 && $getPony[0]["sex"] == "female") {
+            $traitID = '"8"';
+            $breedID = '8';
+            $typeid = 8;
+        } elseif ($getPony[0]["typeid"] == 9 && $getPony[0]["sex"] == "female") {
+            $traitID = '"1"';
+            $breedID = '1';
+            $typeid = 1;
+        } elseif ($getPony[0]["typeid"] == 9 && $getPony[0]["sex"] == "male") {
+            $traitID = '"5"';
+            $breedID = '5';
+            $typeid = 5;
+        } elseif ($getPony[0]["typeid"] == 10 && $getPony[0]["sex"] == "female") {
+            $traitID = '"2"';
+            $breedID = '2';
+            $typeid = 2;
+        } elseif ($getPony[0]["typeid"] == 10 && $getPony[0]["sex"] == "male") {
+            $traitID = '"6"';
+            $breedID = '6';
+            $typeid = 6;
+        } elseif ($getPony[0]["typeid"] == 11 && $getPony[0]["sex"] == "female") {
+            $traitID = '"3"';
+            $breedID = '3';
+            $typeid = 3;
+        } elseif ($getPony[0]["typeid"] == 11 && $getPony[0]["sex"] == "male") {
+            $traitID = '"7"';
+            $breedID = '7';
+            $typeid = 7;
+        }
+
+        //ACTUALLY AGE UP THE PONY
+        Pony::where('ponyid', $request->input('ponyid'))
+            ->update([
+                'age' => 14,
+                'typeid' => $typeid,
+            ]);
+
+        $agedPony = array([
+            'eyes' => $getPony[0]["eyeCol"],
+            'token' => $getPony[0]["token"],
+            'hair' => $getPony[0]["hairCol"],
+            'hair2' => $getPony[0]["hairCol2"],
+            'accent' => $getPony[0]["accentCol"],
+            'accent2' => $getPony[0]["accentCol2"],
+            'specialtrait' => $getPony[0]["specialtrait"],
+            'coat' => $getPony[0]["baseCol"],
+            'sex' => $getPony[0]["sex"],
+            'breed' => $request->input("breed"),
+            'breedID' => $breedID,
+            'traitID' => $traitID,
+            'typeid' => $typeid,
+        ]);
+
+        event(new NewAdultPony($agedPony));
+
+        return redirect(route('pony.profile', ['ponyid' => $request->input('ponyid')]))->with('success', $getPony[0]["name"] . ' grew Up!');
     }
 }

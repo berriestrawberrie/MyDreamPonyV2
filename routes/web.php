@@ -2,6 +2,7 @@
 
 use App\Events\PonyHungry;
 use App\Events\PonyReaper;
+use App\Http\Controllers\BreederController;
 use App\Http\Controllers\ContestController;
 use App\Http\Controllers\ForumController;
 use App\Http\Controllers\GeneratorController;
@@ -23,7 +24,6 @@ Route::get('/register', function () {
 Route::post('/login', [UserController::class, 'login'])->name('login');
 Route::post('/logout', [UserController::class, 'logout'])->name('logout');
 Route::get('/ponyid/{colors}', [PonyController::class, 'ponyTesting'])->name('ponyTester');
-Route::get('/pony/image/{ponyid}', [ImageController::class, 'getPony']);
 Route::get('/ponyprofile/{ponyid}', [PonyController::class, 'ponyProfile'])->name('pony.profile');
 Route::get('/item/{itemID}/{type}', [ImageController::class, 'getItem']);
 Route::get('buildpony/layer/{ponyid}/{layer}', [ImageController::class, 'buildPony']);
@@ -62,6 +62,14 @@ Route::middleware([LoggedInUser::class])->group(function () {
     Route::get('/joincontest/{token}', [ContestController::class, 'joinContest'])->name('join.contest');
     Route::post('/signup/{token}', [ContestController::class, 'signUp']);
     Route::post('/cancel/{token}', [ContestController::class, 'cancelContest']);
+
+    //AGE UP PONY TESTING
+    Route::post('/ageUp', [PonyController::class, 'agePony']);
+
+
+    //PONY BREEDING
+    Route::post('/prebreed', [BreederController::class, 'preBreed']);
+    Route::post('/submitBreed/{type}', [BreederController::class, 'breedPonies']);
 });
 
 

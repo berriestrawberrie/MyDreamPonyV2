@@ -49,7 +49,8 @@ class Pony extends Model
         'contest_group',
         'ownerid',
         'genes',
-        'lineage'
+        'lineage',
+        'inbred'
 
     ];
     protected $table = 'ponys';

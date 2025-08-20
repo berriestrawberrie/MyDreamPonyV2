@@ -120,8 +120,14 @@ function actionWhichPet(id){
     const select = id+"Select";
     const img = id+"Img";
     const pony = document.getElementById(select);
+    //GET THE PONY AGE AND ID FROM SELECT VALUE
+    let ponyArray = JSON.parse("[" + pony.value + "]");
 
-    document.getElementById(img).src = `/pony/image/${pony.value}`;
+    if(ponyArray[1] >= 14){
+    document.getElementById(img).src = `/ponys/adult/${ponyArray[0]}.png`;
+    }else{
+    document.getElementById(img).src = `/ponys/baby/${ponyArray[0]}.png`;
+    }
 }
 
 

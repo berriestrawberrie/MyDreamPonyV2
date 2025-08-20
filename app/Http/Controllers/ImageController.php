@@ -34,19 +34,6 @@ class ImageController extends Controller
             ->header('Cache-Control', 'max-age=2592000');
     }
 
-    public function getPony($ponyid)
-    {
-        //get the pony image by ponyid
-        $rendered_buffer = Pony::where('ponyid', $ponyid)->get();
-        $img = $rendered_buffer[0]["modified"];
-        if (!$img) {
-            $img = $rendered_buffer[0]["image"];
-        }
-        return response($img)
-            ->header('Content-Type', 'image/png')
-            ->header('Cache-Control', 'max-age=2592000');
-    }
-
     public function buildPony($ponyid, $layer)
     {
         //get the pony image by ponyid

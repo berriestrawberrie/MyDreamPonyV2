@@ -9,7 +9,7 @@
             @if($pony->health<100)<img class="absolute -right-[5px] -top-[8px] w-[25px]" src="{{asset('site/statu-heart.svg')}}">@endif
 
     </div>
-    <a href="/ponyprofile/{{$pony->ponyid}}"><img class="border-l-4 border-r-4 border-amber-500 w-[120px] md:w-[200px] lg:w-[250px]" src="/pony/image/{{$pony->ponyid}}?{{uniqid()}}"></a>
+    <a href="/ponyprofile/{{$pony->ponyid}}"><img class="border-l-4 border-r-4 border-amber-500 w-[120px] md:w-[200px] lg:w-[250px]" src="{{asset('ponys/baby/'.$pony->image)}}?{{uniqid()}}"></a>
     <!--PONY STATUSES BOTTOM-->
     <div class="bg-amber-500 rounded-b-lg h-[20px]">
     </div>

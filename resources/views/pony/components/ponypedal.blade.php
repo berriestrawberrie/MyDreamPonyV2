@@ -5,7 +5,11 @@
     </div>
     <img class="w-[120px] md:w-[200px] lg:w-[300px]" src="{{asset('site/blank.png')}}">
     <img  class="absolute top-0 w-[120px] md:w-[200px] lg:w-[300px]" src="{{asset('site/cloudpedal.png')}}">
-    <a href="/ponyprofile/{{$pony->ponyid}}"><img class=" absolute top-0 w-[120px] md:w-[200px] lg:w-[300px]" src="/pony/image/{{$pony->ponyid}}?{{uniqid()}}" loading="lazy" alt="…" width="300" height="300"></a>
+    @if($pony->age >=14)
+        <a href="/ponyprofile/{{$pony->ponyid}}"><img class=" absolute top-0 w-[120px] md:w-[200px] lg:w-[300px]" src="{{asset('ponys/adult/'.$pony->image)}}?{{uniqid()}}" loading="lazy" alt="pony image" width="300" height="300"></a>
+    @else
+        <a href="/ponyprofile/{{$pony->ponyid}}"><img class=" absolute top-0 w-[120px] md:w-[200px] lg:w-[300px]" src="{{asset('ponys/baby/'.$pony->image)}}?{{uniqid()}}" loading="lazy" alt="pony image" width="300" height="300"></a>
+    @endif
     <!--PONY STATUSES BOTTOM-->
     <div class="">
     </div>

@@ -143,28 +143,28 @@ class GeneratorController extends Controller
 
         //DETERMINE THE TRAIT # BY SEX AND BREED
         if ($request->input("breed") == "Unicorn" && $sex == "male") {
-            $traitID = '"4"';
+            $traitID = '"12"';
             $breedID = '12';
         } elseif ($request->input("breed") == "Unicorn" && $sex == "female") {
-            $traitID = '"8"';
+            $traitID = '"12"';
             $breedID = '12';
         } elseif ($request->input("breed") == "Dragon" && $sex == "female") {
-            $traitID = '"1"';
+            $traitID = '"9"';
             $breedID = '9';
         } elseif ($request->input("breed") == "Dragon" && $sex == "male") {
-            $traitID = '"5"';
+            $traitID = '"9"';
             $breedID = '9';
         } elseif ($request->input("breed") == "Avian" && $sex == "female") {
-            $traitID = '"2"';
+            $traitID = '"10"';
             $breedID = '10';
         } elseif ($request->input("breed") == "Avian" && $sex == "male") {
-            $traitID = '"6"';
+            $traitID = '"10"';
             $breedID = '10';
         } elseif ($request->input("breed") == "Kittling" && $sex == "female") {
-            $traitID = '"3"';
+            $traitID = '"11"';
             $breedID = '11';
         } elseif ($request->input("breed") == "Kittling" && $sex == "male") {
-            $traitID = '"7"';
+            $traitID = '"11"';
             $breedID = '11';
         }
 
@@ -178,11 +178,15 @@ class GeneratorController extends Controller
             'specialtrait' => $babytrait,
             'coat' => $coat,
             'sex' => $sex,
+            //BREED ID
             'breed' => $request->input("breed"),
             'breedID' => $breedID,
             'traitID' => $traitID,
+            //LIST OF GENES
             'genes' => $carryID,
-            'babytrait' => $babytrait
+            //SHOWN TRAIT NAME
+            'babytrait' => $babytrait,
+            'source' => "generator",
         ]);
 
         event(new NewPony($newPony));

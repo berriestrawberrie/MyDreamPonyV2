@@ -25,14 +25,18 @@
                         <input number id="foodfed" name="foodfed" class="hidden">
                         <select id="feedPetSelect" name="ponyfed" onchange="actionWhichPet('feedPet')">
                         @foreach($ponys as $pony)
-                        <option value="{{$pony->ponyid}}">{{$pony->name}}</option>
+                        <option value="{{$pony->ponyid}},{{$pony->age}}">{{$pony->name}}</option>
                         @endforeach
                         </select>
                         <button type="submit">Confirm</button>
                         </form>
                         <button id="cancelitem1">Cancel</button>
                     </div>
-                     <img id="feedPetImg" class="w-[320px] md:w-[359px]" src="/pony/image/{{$ponys[0]["ponyid"]}}?">
+                     @if($pony->age > 14)
+                     <img id="feedPetImg" class="w-[320px] md:w-[359px]" src="{{asset('ponys/adult/'.$pony->image)}}?{{uniqid()}}">
+                     @else
+                     <img id="feedPetImg" class="w-[320px] md:w-[359px]" src="{{asset('ponys/baby/'.$pony->image)}}?{{uniqid()}}">
+                     @endif
             </div>
             @endif
         </div>

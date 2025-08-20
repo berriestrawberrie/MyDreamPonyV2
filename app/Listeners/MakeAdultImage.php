@@ -2,14 +2,13 @@
 
 namespace App\Listeners;
 
-use App\Events\NewBabyPony;
+use App\Events\NewAdultPony;
 use App\Models\BuildPony;
 use App\Models\Pony;
 use App\Models\SpecialTrait;
-use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Queue\InteractsWithQueue;
 
-class MakeBabyImage
+
+class MakeAdultImage
 {
     /**
      * Create the event listener.
@@ -22,7 +21,7 @@ class MakeBabyImage
     /**
      * Handle the event.
      */
-    public function handle(NewBabyPony $event): void
+    public function handle(NewAdultPony $event): void
     {
         //
         $colors = ["eyes", "hair", "hair2", "accent", "accent2", "coat"];
@@ -34,7 +33,7 @@ class MakeBabyImage
         $bodys = ["paint"];
         $uncolored = ["hrainbow", "fvulpine"];
         $breedID = $event->newPony[0]["breedID"];
-        $babytrait = $event->newPony[0]["babytrait"];
+        $specialtrait = $event->newPony[0]["specialtrait"];
         $traitID = $event->newPony[0]["traitID"];
         $coat = $event->newPony[0]["coat"];
         $hair = $event->newPony[0]["hair"];
@@ -43,10 +42,13 @@ class MakeBabyImage
         $accent = $event->newPony[0]["accent"];
         $accent2 = $event->newPony[0]["accent2"];
 
+
+        $pony = BuildPony::where('id', $breedID)->get();
+
         //BUILD THE TRAIT IMAGE
-        if ($babytrait) {
+        if ($specialtrait) {
             //PULL THE IMAGE FROM DB BY AVATAR ID
-            $specialtrait = SpecialTrait::where('traitname', $babytrait)->get();
+            $specialtrait = SpecialTrait::where('traitname', $specialtrait)->get();
             $img = $specialtrait[0][$traitID];
             //GENERATE GD IMAGE FROM DB BLOB
             $gdImg = imagecreatefromstring($img);
@@ -56,7 +58,7 @@ class MakeBabyImage
                 imageAlphaBlending($gdImg, true);
                 imageSaveAlpha($gdImg, true);
                 //EXTRACT THE SPECIAL TRAIT COLORING FROM ACCENT IF FACE OR BODY
-                if (in_array($babytrait, $faces) || in_array($babytrait, $bodys)) {
+                if (in_array($specialtrait, $faces) || in_array($specialtrait, $bodys)) {
                     //IF SPECIAL TRAIT IS BOY OR FACE USE ACCENT2
                     list($huer, $hueg, $hueb) = sscanf($accent2, "%02x%02x%02x");
                 } else {
@@ -64,7 +66,7 @@ class MakeBabyImage
                     list($huer, $hueg, $hueb) = sscanf($hair2, "%02x%02x%02x");
                 }
                 //RECOLOR THE PONY HAIR TRAIT IMAGE IF HAIR IS NOT RAINBOW
-                if (in_array($babytrait, $uncolored)) {
+                if (in_array($specialtrait, $uncolored)) {
 
                     imagepng($gdImg, $file = public_path('ponygen/' . 'ponylistener' . 'specialtrait.png'));
                 } else {
@@ -75,14 +77,12 @@ class MakeBabyImage
                 echo 'An error occured retrieving trait image from DB';
             }
         } else {
-            $babytrait = null;
+            $specialtrait = null;
         } //END OF TRAIT IMAGE 
 
-        //BUILD PONY IMAGE
-        $pony = BuildPony::where('id', $breedID)->get();
+
         $ponyimgs = ["imgbase", "imghair", "imgaccent", "imgaccent2", "imgeye", "imgmask", "imgwhite", "imgshade", "imgink"];
         $ycolors = [$coat, $hair, $accent, $accent2, $eye];
-
         //UNCOLORED WHITE IMAGE
         $img = $pony[0]["imgwhite"];
         $whiteImg = imagecreatefromstring($img);
@@ -157,10 +157,10 @@ class MakeBabyImage
         list($huer, $hueg, $hueb) = sscanf($accent2, "%02x%02x%02x");
         imagefilter($accent2Img, IMG_FILTER_COLORIZE, $huer, $hueg, $hueb);
 
-
-        if ($babytrait) {
+        $specialtrait = $event->newPony[0]["specialtrait"];
+        if ($specialtrait) {
             //TRAIT IMAGE IS FACE OR BODY
-            if (in_array($babytrait, $faces) || in_array($babytrait, $bodys)) {
+            if (in_array($specialtrait, $faces) || in_array($specialtrait, $bodys)) {
                 imagecopy($baseImg, $gdImg, 0, 0, 0, 0, 599, 485);
                 imagecopy($baseImg, $hairImg, 0, 0, 0, 0, 599, 485);
                 imagecopy($baseImg, $accentImg, 0, 0, 0, 0, 599, 485);
@@ -171,7 +171,7 @@ class MakeBabyImage
                 imagecopy($baseImg, $inkImg, 0, 0, 0, 0, 599, 485);
             }
             //TRAIT IMAGE IS HAIR
-            if (in_array($babytrait, $hairs)) {
+            if (in_array($specialtrait, $hairs)) {
                 imagecopy($baseImg, $hairImg, 0, 0, 0, 0, 599, 485);
                 imagecopy($baseImg, $gdImg, 0, 0, 0, 0, 599, 485);
                 imagecopy($baseImg, $accentImg, 0, 0, 0, 0, 599, 485);
@@ -192,12 +192,14 @@ class MakeBabyImage
             imagecopy($baseImg, $inkImg, 0, 0, 0, 0, 599, 485);
         }
         //GET THE PONY ID
-        $ponyID =    Pony::where('token', $token)
+        $ponyID = Pony::where('token', $token)
             ->get();
 
+
         //WRITE THE IMAGE TO FILE FOR TEMPORARILY
-        imagepng($baseImg, $file = public_path('ponys/baby/' . $ponyID[0]["ponyid"] . '.png'));
+        imagepng($baseImg, $file = public_path('ponys/adult/' . $ponyID[0]["ponyid"] . '.png'));
         $filename = $ponyID[0]["ponyid"] . '.png';
+
 
 
         //UPDATE THE PONY WITH MERGED IMAGE

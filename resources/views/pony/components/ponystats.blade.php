@@ -100,7 +100,11 @@
             <td>{{$pony[0]["str"]}}</td>        
         </tr>
     </table>
-    <button>Quests?</button>
-
+    <button class="mb-2">Quests?</button>
+    <form method="POST" action="/ageUp" enctype="multipart/form-data">
+        @csrf
+        <input class="hidden" type="number" value="{{$pony[0]["ponyid"]}}" name="ponyid">
+        <button type="submit">Age Up</button>
+    </form>
 
 </div>
