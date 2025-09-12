@@ -55,7 +55,9 @@ Route::middleware([LoggedInUser::class])->group(function () {
     Route::get('/inventory/{userID}', [UserController::class, 'inventoryOverlay']);
     Route::post('/feedpet', [ItemController::class, 'feedPet']);
     Route::post('/dressPony', [ItemController::class, 'dressPony']);
-
+    Route::get('/nextpony/{stable}/{current}', [PonyController::class, 'nextPony']);
+    Route::get('/previouspony/{stable}/{current}', [PonyController::class, 'previousPony']);   
+    
     //CONTESTS ROUTES
     Route::get('/contests', [ContestController::class, 'contests'])->name('contest.home');
     Route::post('/scheduleContest', [ContestController::class, 'scheduleContest']);

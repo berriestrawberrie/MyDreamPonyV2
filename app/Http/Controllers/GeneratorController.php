@@ -62,6 +62,7 @@ class GeneratorController extends Controller
 
         $newcolors = [];
         $finalcolors = [];
+        $finalcolorsRGB = [];
 
         //DETERMINE THE BABY COLOR MIX RANDOMIZATION
         for ($i = 0; $i < count($colors); $i++) {
@@ -130,6 +131,7 @@ class GeneratorController extends Controller
             } //END OF FOREACH COLORMIX
             $babyhex = sprintf("%02x%02x%02x", $newcolors[0], $newcolors[1], $newcolors[2]);
             $finalcolors[$i] = $babyhex;
+            $finalcolorsRGB[$i] = sprintf('%03d', $newcolors[0]) . " ". sprintf('%03d', $newcolors[1] ) . " ". sprintf('%03d', $newcolors[2] );
             $newcolors = [];
         } //END OF FOR LOOP
 
@@ -139,6 +141,12 @@ class GeneratorController extends Controller
         $accent = $finalcolors[3];
         $accent2 = $finalcolors[4];
         $coat = $finalcolors[5];
+        $eyeRGB = $finalcolorsRGB[0];
+        $hairRGB = $finalcolorsRGB[1];
+        $hair2RGB = $finalcolorsRGB[2];
+        $accentRGB = $finalcolorsRGB[3];
+        $accent2RGB = $finalcolorsRGB[4];
+        $coatRGB = $finalcolorsRGB[5];
 
 
         //DETERMINE THE TRAIT # BY SEX AND BREED
@@ -177,6 +185,12 @@ class GeneratorController extends Controller
             'accent2' => $accent2,
             'specialtrait' => $babytrait,
             'coat' => $coat,
+            'eyesRGB' => $eyeRGB,
+            'hairRGB' => $hairRGB,
+            'hair2RGB' => $hair2RGB,
+            'accentRGB' => $accentRGB,
+            'accent2RGB' => $accent2RGB,
+            'coatRGB' => $coatRGB,
             'sex' => $sex,
             //BREED ID
             'breed' => $request->input("breed"),

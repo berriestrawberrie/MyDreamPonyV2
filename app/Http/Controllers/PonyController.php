@@ -19,9 +19,11 @@ class PonyController extends Controller
     {
 
         $pony = Pony::where('ponyid', $ponyid)->get();
+        $owned = false;
         $owned = Pony::where('ownerid', Auth::user()->id)
             ->where('sex', '!=', $pony[0]["sex"])
             ->get();
+            
 
         return view('pony.ponyprofile', compact('pony', 'owned'));
     }
@@ -92,4 +94,61 @@ class PonyController extends Controller
 
         return redirect(route('pony.profile', ['ponyid' => $request->input('ponyid')]))->with('success', $getPony[0]["name"] . ' grew Up!');
     }
+    public function nextPony($stable, $current)
+    {
+        $user = Auth::user();
+        //GET THE PONY LIST AND STABLE ORDER
+        $ponys = Pony::where('ownerid', $user["id"])
+            ->where('stable_assign', $stable)
+            ->orderby('stable_ord')->get();
+        $ponylist = [];
+        $stablelist = [];
+        for ($i = 0; $i < count($ponys); $i++) {
+            $stablelist[$i] = $ponys[$i]["stable_ord"];
+            $ponylist[$i] = $ponys[$i]["ponyid"];
+        }
+
+        //FIND THE INDEX OF THE CURRENT PONY
+        $find = array_search($current, $ponylist);
+        //CHECK IF YOU ARE AT THE END OF THE STABLE ORDER THEN RESET
+        if ($find == (count($ponylist) - 1)) {
+            $next = 0;
+        } else {
+            $next = $find + 1;
+        }
+
+        $nextpony = $ponylist[$next];
+
+
+        return $this->ponyProfile($nextpony);
+    }
+    public function previousPony($stable, $previous)
+        {
+
+            $user = Auth::user();
+            //GET THE PONY LIST AND STABLE ORDER
+            $ponys = Pony::where('ownerid', $user["id"])
+                ->where('stable_assign', $stable)
+                ->orderby('stable_ord')->get();
+            $ponylist = [];
+            $stablelist = [];
+            for ($i = 0; $i < count($ponys); $i++) {
+                $stablelist[$i] = $ponys[$i]["stable_ord"];
+                $ponylist[$i] = $ponys[$i]["ponyid"];
+            }
+
+            //FIND THE INDEX OF THE CURRENT PONY
+            $find = array_search($previous, $ponylist);
+            //CHECK IF YOU ARE AT THE END OF THE STABLE ORDER THEN RESET
+            if ($find == 0) {
+                $next = count($ponylist) - 1;
+            } else {
+                $next = $find - 1;
+            }
+
+            $nextpony = $ponylist[$next];
+
+
+            return $this->ponyProfile($nextpony);
+        }
 }

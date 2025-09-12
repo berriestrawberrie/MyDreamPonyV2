@@ -122,11 +122,13 @@ function actionWhichPet(id){
     const pony = document.getElementById(select);
     //GET THE PONY AGE AND ID FROM SELECT VALUE
     let ponyArray = JSON.parse("[" + pony.value + "]");
-
+    console.log(img);
     if(ponyArray[1] >= 14){
-    document.getElementById(img).src = `/ponys/adult/${ponyArray[0]}.png`;
+    const test = document.getElementById(img).src = `/ponys/adult/${ponyArray[0]}.png`;
+     console.log(test);
     }else{
-    document.getElementById(img).src = `/ponys/baby/${ponyArray[0]}.png`;
+    const test = document.getElementById(img).src = `/ponys/baby/${ponyArray[0]}.png`;
+     console.log(test);
     }
 }
 

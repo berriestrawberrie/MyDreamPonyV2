@@ -76,10 +76,16 @@ class AddPonyDatabase
                     'hairCol2' => $event->newPony[0]["hair2"],
                     'baseCol' => $event->newPony[0]["coat"],
                     'accentCol2' => $event->newPony[0]["accent2"],
+                    'eyeCol-rgb' => $event->newPony[0]["eyesRGB"],
+                    'accentCol-rgb' => $event->newPony[0]["accentRGB"],
+                    'hairCol-rgb' => $event->newPony[0]["hairRGB"],
+                    'hairCol2-rgb' => $event->newPony[0]["hair2RGB"],
+                    'baseCol-rgb' => $event->newPony[0]["coatRGB"],
+                    'accentCol2-rgb' => $event->newPony[0]["accent2RGB"],
                     'specialtrait' => $babytrait
                 ]);
                 break;
-            case "birth":
+                case "birth":
 
                 /*CREATE THE NEW PONY     */
                 Pony::create([
@@ -106,6 +112,12 @@ class AddPonyDatabase
                     'hairCol2' => $event->newPony[0]["hair2"],
                     'baseCol' => $event->newPony[0]["coat"],
                     'accentCol2' => $event->newPony[0]["accent2"],
+                    'eyeCol-rgb' => $event->newPony[0]["eyesRGB"],
+                    'accentCol-rgb' => $event->newPony[0]["accentRGB"],
+                    'hairCol-rgb' => $event->newPony[0]["hairRGB"],
+                    'hairCol2-rgb' => $event->newPony[0]["hair2RGB"],
+                    'baseCol-rgb' => $event->newPony[0]["coatRGB"],
+                    'accentCol2-rgb' => $event->newPony[0]["accent2RGB"],
                     'specialtrait' => $event->newPony[0]["specialtrait"]
                 ]);
         }

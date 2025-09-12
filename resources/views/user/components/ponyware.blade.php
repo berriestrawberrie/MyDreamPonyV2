@@ -26,7 +26,7 @@
                         <select id="dressPetSelect" name="ponyID" onchange="actionWhichPet('dressPet')">
                         @foreach($ponys as $pony)
                             @if($pony->age >=14)
-                            <option value="{{$pony->ponyid}}">{{$pony->name}}</option>
+                            <option value="{{$pony->ponyid}},{{$pony->age}}">{{$pony->name}}</option>
                             @endif
                         @endforeach
                         </select>
@@ -34,8 +34,10 @@
                         </form>
                         <button id="cancelitem2">Cancel</button>
                     </div>
-                        @if($pony->age >=14)
-                     <img id="dressPetImg" class="w-[320px] md:w-[359px]" src="{{asset('ponys/adult')}}?{{uniqid()}}">
+                     @if($pony->age >= 14)
+                     <img id="dressPetImg" class="w-[320px] md:w-[359px]" src="{{asset('ponys/adult/'.$pony->image)}}?{{uniqid()}}">
+                     @else
+                     <img id="dressPetImg" class="w-[320px] md:w-[359px]" src="{{asset('ponys/baby/'.$pony->image)}}?{{uniqid()}}">
                      @endif
             </div>
             @endif

@@ -19,6 +19,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'color_pref',
         'birthday',
         'arena_level',
         'arena_max',

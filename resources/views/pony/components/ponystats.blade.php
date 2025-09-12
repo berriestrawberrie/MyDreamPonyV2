@@ -24,7 +24,7 @@
                 <td class="flex justify-start gap-2 uppercase items-center">
                     <div class="w-[20px] border rounded h-[20px]"style="background-color:#{{$pony[0]["eyeCol"]}}">
                     </div>
-                    #{{$pony[0]["eyeCol"]}}
+                    {{Auth::user()->color_pref === 'HEX' ? '#'.$pony[0]["eyeCol"] : $pony[0]["eyeCol-rgb"]}}
                 </td>
                 <td></td>
                 <td></td>
@@ -34,7 +34,7 @@
                 <td class="flex justify-start gap-2 uppercase items-center">
                     <div class="w-[20px] border rounded h-[20px]"style="background-color:#{{$pony[0]["baseCol"]}}">
                     </div>
-                    #{{$pony[0]["baseCol"]}}
+                    {{Auth::user()->color_pref === 'HEX' ?  '#'.$pony[0]["baseCol"]: $pony[0]["baseCol-rgb"]}}
                 </td>
                 <td></td>
                 <td></td>
@@ -45,13 +45,13 @@
                 <td class="flex justify-start gap-2 uppercase items-center pe-2">
                     <div class="w-[20px] border rounded h-[20px]"style="background-color:#{{$pony[0]["hairCol"]}}">
                     </div>
-                    #{{$pony[0]["hairCol"]}}
+                    {{Auth::user()->color_pref === 'HEX' ?  '#'.$pony[0]["hairCol"]: $pony[0]["hairCol-rgb"]}}
                 </td>
                 <td></td>
                 <td class="flex justify-start gap-2 uppercase items-center">
                     <div class="w-[20px] border rounded h-[20px]"style="background-color:#{{$pony[0]["hairCol2"]}}">
                     </div>
-                    #{{$pony[0]["hairCol2"]}}
+                    {{Auth::user()->color_pref === 'HEX' ?  '#'.$pony[0]["hairCol2"]: $pony[0]["hairCol2-rgb"]}}
                 </td>
             </tr>
             <tr>
@@ -59,13 +59,14 @@
                 <td class="flex justify-start gap-2 uppercase items-center pe-2">
                     <div class="w-[20px] border rounded h-[20px]"style="background-color:#{{$pony[0]["accentCol"]}}">
                     </div>
-                    #{{$pony[0]["accentCol"]}}
+                    {{Auth::user()->color_pref === 'HEX' ?  '#'.$pony[0]["accentCol"]: $pony[0]["accentCol-rgb"]}}
                 </td>
                 <td></td>
                 <td class="flex justify-start gap-2 uppercase items-center">
                     <div class="w-[20px] border rounded h-[20px]"style="background-color:#{{$pony[0]["accentCol2"]}}">
                     </div>
-                    #{{$pony[0]["accentCol2"]}}
+                    {{Auth::user()->color_pref === 'HEX' ?  '#'.$pony[0]["accentCol2"]: $pony[0]["accentCol2-rgb"]}}
+
                 </td>
             </tr>
 

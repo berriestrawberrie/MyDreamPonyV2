@@ -39,6 +39,7 @@ class BreederController extends Controller
         $colors = ["eyeCol", "accentCol", "hairCol", "hairCol2", "baseCol", "accentCol2"];
         $stats = ["level", "intel", "str", "hp", "charm"];
         $babycolors = [];
+        $babycolorsRGB = [];
         $babystats = [];
 
 
@@ -50,12 +51,49 @@ class BreederController extends Controller
                     list($r1, $g1, $b1) = sscanf($ponys[0][$colors[$i]], "%02x%02x%02x");
                     //TAKE PONY2 COLOR CONVERT TO RGB
                     list($r2, $g2, $b2) = sscanf($ponys[1][$colors[$i]], "%02x%02x%02x");
-                    //CALCULATE AVERAGES FOR NEW RGB
+                    /*CALCULATE AVERAGES FOR NEW RGB
                     $nr = round((intval($r1) + intval($r2)) / 2);
                     $ng = round((intval($g1) + intval($g2)) / 2);
                     $nb = round((intval($b1) + intval($b2)) / 2);
+                    */
+                    //TAKE THE MINIMUM FOR EACH RGB
+                    $mr = min(intval($r1),intval($r2));
+                    $mg = min(intval($g1),intval($g2));
+                    $mb = min(intval($b1),intval($b2));
+                    //GET A RANDOM SHAKE VALUE [0,10]
+                    $shake = rand(-10,10);
+                    $nr = $mr + $shake;
+                    $ng = $mg + $shake;
+                    $nb = $mb + $shake;
+
+
+
+                    //CHECK THE VALUES ARE WITHIN RANGE
+                    if($nr > 255){
+                        $nr = 255;
+                    }elseif($nr <0){
+                        $nr = 0;
+                    }else{
+                        $nr = $nr;
+                    }    
+                    if($ng > 255){
+                        $ng = 255;
+                    }elseif($ng <0){
+                        $ng = 0;
+                    }else{
+                        $ng = $ng;
+                    }  
+                    if($nb > 255){
+                        $nb = 255;
+                    }elseif($nb <0){
+                        $nb = 0;
+                    }else{
+                        $nb = $nb;
+                    }  
                     $babycolors[$i] = sprintf("%02x%02x%02x", $nr, $ng, $nb);
+                    $babycolorsRGB[$i] = sprintf('%03d', $nr) . " " . sprintf('%03d', $ng) . " " . sprintf('%03d', $nb) ;
                 } //END COLOR GEN
+
                 for ($i = 0; $i < count($stats); $i++) {
                     //TAKE PONY1 STAT
                     $stat1 = $ponys[0][$stats[$i]];
@@ -105,7 +143,7 @@ class BreederController extends Controller
         }
         $colors = ["eyeCol", "accentCol", "hairCol", "hairCol2", "baseCol", "accentCol2"];
         $newPony = array([
-            'eyes' => $colors[0],
+            'eyes' => $babycolors[0],
             'token' => uniqid(),
             'hair' => $babycolors[2],
             'hair2' => $babycolors[3],
@@ -113,6 +151,12 @@ class BreederController extends Controller
             'accent2' => $babycolors[5],
             'specialtrait' => $babytrait,
             'coat' => $babycolors[4],
+            'eyesRGB' => $babycolorsRGB[0],
+            'coatRGB' => $babycolorsRGB[4],
+            'hairRGB' => $babycolorsRGB[2],
+            'hair2RGB' => $babycolorsRGB[3],
+            'accentRGB' => $babycolorsRGB[1],
+            'accent2RGB' => $babycolorsRGB[5],
             'sex' => $sex,
             //BREED ID
             'breed' => $breedCalc,

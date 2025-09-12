@@ -30,7 +30,8 @@ class PonyItemImageMerge
         $token = $pony[0]["token"];
 
         //GET BLANK PONY IMAGE
-        $ponyImg = imagecreatefromstring($pony[0]["image"]);
+        $ponyImg = imagecreatefrompng(public_path('ponys/adult/' . $event->pony[0]["ponyid"]. '.png'));
+        //$ponyImg = imagecreatefromstring($pony[0]["image"]);
         header('Content-Type: image/png');
         header('Cache-Control', 'max-age=2592000');
         imageAlphaBlending($ponyImg, true);
@@ -115,9 +116,9 @@ class PonyItemImageMerge
 
 
         //WRITE THE IMAGE TO FILE FOR TEMPORARILY
-        imagepng($ponyImg, $file = public_path('ponygen/test' . $token . '.png'));
-        $mergedImg = file_get_contents(public_path('ponygen/test' . $token . '.png'));
-        //DELETE TEMP FILE
+        imagepng($ponyImg, $file = public_path('ponys/mod/' . $event->pony[0]["ponyid"] . '.png'));
+        /*$mergedImg = file_get_contents(public_path('ponys/mod/' . $event->pony[0]["ponyid"] . '.png'));
+        DELETE TEMP FILE
         unlink(public_path('ponygen/test' . $token . '.png'));
 
         //UPDATE THE PONY WITH MERGED IMAGE
@@ -125,6 +126,7 @@ class PonyItemImageMerge
             ->update([
                 'modified' => $mergedImg,
             ]);
+            */
 
         //CLEAN UP GD IMAGES
         imagedestroy($ponyImg);
