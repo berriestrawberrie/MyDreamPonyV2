@@ -1,6 +1,6 @@
 <div style="display: flex; align-items:center; flex-direction: column; background-color:#94D3FC; width: 100vw; height: 100vw;">
 <div style="width: 60%; display: flex; align-items:center; flex-direction: column;">
-<img src="public/site/my.png" style="max-width: 500px;">
+
 
 <h2 style="font-size: 3em; color: #fff; font-weight: 700;">An Upcoming Virtual Pet Site </h2>
 <p style="background-color: #fff; margin-top: -40px; border-radius: 15px; padding: 10px; color: #000;">My dream pony will be a browser based virtual pet site. You will be able to breed pony like pet creatures, train them, collect items, restock npc shops for currency, farming, cooking, creating custom items decorations for all your ponies. This game is currently in development and is not expected to be available to the public for some time. As I am the sole developer, artist, and marketing team 😊. As this is a passion project I am steadily working to develop it and improve the coding, art and features.
