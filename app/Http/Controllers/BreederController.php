@@ -36,7 +36,7 @@ class BreederController extends Controller
         $options = ["female", "male"];
         $sex = $options[array_rand($options)];
 
-        $colors = ["eyeCol", "accentCol", "hairCol", "hairCol2", "baseCol", "accentCol2"];
+        $colors = ["hairCol2","eyeCol", "accentCol", "hairCol",  "baseCol", "accentCol2"];
         $stats = ["level", "intel", "str", "hp", "charm"];
         $babycolors = [];
         $babycolorsRGB = [];
@@ -51,42 +51,67 @@ class BreederController extends Controller
                     list($r1, $g1, $b1) = sscanf($ponys[0][$colors[$i]], "%02x%02x%02x");
                     //TAKE PONY2 COLOR CONVERT TO RGB
                     list($r2, $g2, $b2) = sscanf($ponys[1][$colors[$i]], "%02x%02x%02x");
-                    /*CALCULATE AVERAGES FOR NEW RGB
-                    $nr = round((intval($r1) + intval($r2)) / 2);
-                    $ng = round((intval($g1) + intval($g2)) / 2);
-                    $nb = round((intval($b1) + intval($b2)) / 2);
-                    */
-                    //TAKE THE MINIMUM FOR EACH RGB
-                    $mr = min(intval($r1),intval($r2));
-                    $mg = min(intval($g1),intval($g2));
-                    $mb = min(intval($b1),intval($b2));
-                    //GET A RANDOM SHAKE VALUE [0,10]
-                    $shake = rand(-10,10);
-                    $nr = $mr + $shake;
-                    $ng = $mg + $shake;
-                    $nb = $mb + $shake;
+                    //FIND MAX & MIN between sire and dam
+                    $minR = min(intval($r1),intval($r2));
+                    $minG = min(intval($g1),intval($g2));
+                    $minB = min(intval($b1),intval($b2));
+                    $maxR = max(intval($r1),intval($r2));
+                    $maxG = max(intval($g1),intval($g2));
+                    $maxB = max(intval($b1),intval($b2));
+                    $diffR = abs(intval($r1)-intval($r2));
+                    $diffG = abs(intval($g1)-intval($g2));
+                    $diffB = abs(intval($b1)-intval($b2));
+                    //CALCULATE RANDOM SHAKE
+                    $shake = rand(0,100)/100;
+                    //RANDOMIZE THE STARTING POINTS
+                    if(rand(0,1)=== 1){
+                        $startR = $minR;
+                        $fnr = $startR + round($diffR * $shake);
+                    }else{
+                        $startR = $maxR;
+                        $fnr = $startR - round($diffR * $shake);
+                    }
+                    if(rand(0,1)=== 1){
+                        $startG = $minG;
+                        $fng = $startG + round($diffG * $shake);
+                    }else{
+                        $startG = $maxG;
+                        $fng = $startG - round($diffG * $shake);
+                    }
+                    if(rand(0,1)=== 1){
+                        $startB = $minB;
+                        $fnb = $startB + round($diffB * $shake);
+                    }else{
+                        $startB = $maxB;
+                        $fnb = $startB - round($diffB * $shake);
+                    }
 
-
+                    
+                    //SHAKE EACH RGB INDIVIDUALLY
+                    $nr = $fnr + rand(-10,10);
+                    $ng = $fng + rand(-10,10);
+                    $nb = $fnb + rand(-10,10);
+                    //dd($message, $startR, $startG, $startB, $shake, $fnr , $fng , $fnb, $nr, $ng, $nb);
 
                     //CHECK THE VALUES ARE WITHIN RANGE
-                    if($nr > 255){
-                        $nr = 255;
-                    }elseif($nr <0){
-                        $nr = 0;
+                    if($nr > $maxR){
+                        $nr =  $maxR;
+                    }elseif($nr < $minR){
+                        $nr = $minR;
                     }else{
                         $nr = $nr;
                     }    
-                    if($ng > 255){
-                        $ng = 255;
-                    }elseif($ng <0){
-                        $ng = 0;
+                    if($ng > $maxG){
+                        $ng = $maxG;
+                    }elseif($ng < $minG){
+                        $ng = $minG;
                     }else{
                         $ng = $ng;
                     }  
-                    if($nb > 255){
-                        $nb = 255;
-                    }elseif($nb <0){
-                        $nb = 0;
+                    if($nb > $maxB){
+                        $nb = $maxB;
+                    }elseif($nb < $minB){
+                        $nb = $minB;
                     }else{
                         $nb = $nb;
                     }  
@@ -141,21 +166,21 @@ class BreederController extends Controller
             $traitID = '"12"';
             $breedID = '12';
         }
-        $colors = ["eyeCol", "accentCol", "hairCol", "hairCol2", "baseCol", "accentCol2"];
+        $colors = ["hairCol2","eyeCol", "accentCol", "hairCol",  "baseCol", "accentCol2"];
         $newPony = array([
-            'eyes' => $babycolors[0],
+            'eyes' => $babycolors[1],
             'token' => uniqid(),
-            'hair' => $babycolors[2],
-            'hair2' => $babycolors[3],
-            'accent' => $babycolors[1],
+            'hair' => $babycolors[3],
+            'hair2' => $babycolors[0],
+            'accent' => $babycolors[2],
             'accent2' => $babycolors[5],
             'specialtrait' => $babytrait,
             'coat' => $babycolors[4],
-            'eyesRGB' => $babycolorsRGB[0],
+            'eyesRGB' => $babycolorsRGB[1],
             'coatRGB' => $babycolorsRGB[4],
-            'hairRGB' => $babycolorsRGB[2],
-            'hair2RGB' => $babycolorsRGB[3],
-            'accentRGB' => $babycolorsRGB[1],
+            'hairRGB' => $babycolorsRGB[3],
+            'hair2RGB' => $babycolorsRGB[0],
+            'accentRGB' => $babycolorsRGB[2],
             'accent2RGB' => $babycolorsRGB[5],
             'sex' => $sex,
             //BREED ID

@@ -32,7 +32,7 @@ class ColorNMergeImages
         $faces = ["blaze", "ffade", "fvulpine"];
         $none = ["none"];
         $bodys = ["paint"];
-        $uncolored = ["hrainbow", "fvulpine"];
+        $uncolored = ["hrainbow", "fvulpine","paint"];
         $breedID = $event->newPony[0]["breedID"];
         $babytrait = $event->newPony[0]["babytrait"];
         $traitID = $event->newPony[0]["traitID"];
