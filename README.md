@@ -9,8 +9,8 @@
 <p style="background-color: #fff; margin-top: -40px; border-radius: 15px; padding: 10px; color: #000;">Players can select a desired color and generate a pet, with a chance of it matching their chosen hue. This generator will allow users to visually design ponies by selecting traits such as breed, gender, body color, mane style, eye color, and genetic markings. Which will add a level of challenge to the breeding game. 
 </p>
 <img src="public/site/readme-gen.png" style="border: 4px solid #fff; border-radius: 15px;">
-<h2 style="font-size: 3em; color: #fff; font-weight: 700;">Randomized Pet Generation </h2>
-<p style="background-color: #fff; margin-top: -40px; border-radius: 15px; padding: 10px; color: #000;">Players can select a desired color and generate a pet, with a chance of it matching their chosen hue. This generator will allow users to visually design ponies by selecting traits such as breed, gender, body color, mane style, eye color, and genetic markings. Which will add a level of challenge to the breeding game. 
+<h2 style="font-size: 3em; color: #fff; font-weight: 700;">Customize and Care for your Pet </h2>
+<p style="background-color: #fff; margin-top: -40px; border-radius: 15px; padding: 10px; color: #000;">Train your pony to master skills, dress it up in whimsical outfits, feed it delicious treats, and customize every detail—from mane to mood. My Dream Pony is your cozy corner of creativity and care.
 </p>
 <img src="public/site/readme-profile.png" style="border: 4px solid #fff; border-radius: 15px;">
 </div>
