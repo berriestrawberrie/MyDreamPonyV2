@@ -23,9 +23,18 @@ class PonyController extends Controller
         $owned = Pony::where('ownerid', Auth::user()->id)
             ->where('sex', '!=', $pony[0]["sex"])
             ->get();
-            
+        $lineage = explode(",", $pony[0]["lineage"]);
+        //RESET INDEX AFTER REMOVING NULLS
+        $filly = array_values(array_filter(explode(",", $pony[0]["filly"])));
+        $colt = array_values(array_filter(explode(",", $pony[0]["colt"])));
+        $babies = Pony::wherein('token', array_merge($filly,$colt))
+            ->get(['name','ponyid','token']);
+       //dd($babies);
+        $keys = ["sex", "name","id"];
+        //dd($lineage);
+        
 
-        return view('pony.ponyprofile', compact('pony', 'owned'));
+        return view('pony.ponyprofile', compact('pony', 'owned', 'lineage','filly','colt','babies'));
     }
     public function agePony(Request $request)
     {

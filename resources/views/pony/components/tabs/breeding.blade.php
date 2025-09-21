@@ -9,7 +9,9 @@
                 <select id="breeder2" name="breeder2" onchange="selectMate()">
 
                     @foreach($owned as $item)
+                        @if($item->age >= 14)
                         <option value="{{$item->ponyid}}">{{$item->sex}}: {{$item->name}}(#{{$item->ponyid}})</option>
+                        @endif
                     @endforeach
                     
                 </select>

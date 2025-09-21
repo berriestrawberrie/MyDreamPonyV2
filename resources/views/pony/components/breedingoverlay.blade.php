@@ -22,7 +22,7 @@
     <div class="text-center">
         <p>The dam will receive the offspring around: {{date_format($birth, 'Y-m-d H:m:s')}}</p>
     </div>
-    <form method="POST" action="/submitBreed/average" enctype="multipart/form-data">
+    <form method="POST" action="/submitBreed/regular" enctype="multipart/form-data">
         @csrf
     <button class="float-right">Confirm Breeding</button>
     <input class="hidden" type="number" value="{{$ponys[0]["ponyid"]}}" name="breeder1">

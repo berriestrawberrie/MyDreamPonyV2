@@ -7,6 +7,9 @@ use App\Events\NewPony;
 use App\Models\Pony;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+
+
 
 class BreederController extends Controller
 {
@@ -32,9 +35,67 @@ class BreederController extends Controller
         $breeders = [intval($request->input('breeder1')), intval($request->input('breeder2'))];
         $ponys = Pony::wherein('ponyid', $breeders)->get();
 
+        //ORDER THE DAM AND SIRE
+        if($ponys[0]["sex"] === "female"){
+            $dam = $ponys[0];
+            $sire = $ponys[1];
+        }else{
+            $dam = $ponys[1];
+            $sire = $ponys[0];
+        }
+        //CALCULATE THE LINEAGE
+        $damLine = explode(",",$dam["lineage"]);
+        $sireLine = explode(",",$sire["lineage"]);
+        if(count($damLine)<6){
+            $missing = 6 - count($damLine);
+            $zeros = array_fill(0, $missing, 0);
+            $newDam = array_merge($damLine,$zeros);
+            $newDamList = implode(",",$newDam);
+        }else{
+            $newDam = array_slice($damLine, 0, 6);
+            $newDamList = implode(",",$newDam);
+        }
+        if(count($sireLine)<6){
+            $missing = 6 - count($sireLine);
+            $zeros = array_fill(0, $missing, 0);
+            $newSire = array_merge($sireLine,$zeros);
+            $newSireList = implode(",",$newSire);
+        }else{
+            $newSire = array_slice($sireLine, 0,6);
+            $newSireList = implode(",",$newSire);
+        }
+        //dd($newDamList , $newSireList);
+
+        $lineage = $dam["ponyid"]. ",". $sire["ponyid"]. ",".$newDamList . ",". $newSireList;
         //GET BABY SEX
         $options = ["female", "male"];
         $sex = $options[array_rand($options)];
+        $token = uniqid();
+        //ADD BABY TO DAM AND SIRE LIST
+        if($sex === "female"){
+           Pony::where('ponyid', $dam["ponyid"])
+           ->update([
+            'filly' => $dam["filly"] .",". $token,
+           ]);
+            Pony::where('ponyid', $sire["ponyid"])
+           ->update([
+            'filly' => $dam["sire"] .",". $token,
+           ]);
+
+        }else{
+           Pony::where('ponyid', $dam["ponyid"])
+           ->update([
+            'colt' => $dam["colt"] .",". $token,
+           ]);
+            Pony::where('ponyid', $sire["ponyid"])
+           ->update([
+            'colt' => $dam["colt"] .",". $token,
+           ]);
+
+        }
+
+
+
 
         $colors = ["hairCol2","eyeCol", "accentCol", "hairCol",  "baseCol", "accentCol2"];
         $stats = ["level", "intel", "str", "hp", "charm"];
@@ -43,9 +104,9 @@ class BreederController extends Controller
         $babystats = [];
 
 
-        //MIX COLORS BY BREEDING TYPE (RANGE OR AVERAGE)
+        //MIX COLORS BY BREEDING TYPE (REGULAR BREEDING)
         switch ($type) {
-            case "average":
+            case "regular":
                 for ($i = 0; $i < count($colors); $i++) {
                     //TAKE PONY1 COLOR CONVERT TO RGB
                     list($r1, $g1, $b1) = sscanf($ponys[0][$colors[$i]], "%02x%02x%02x");
@@ -88,9 +149,9 @@ class BreederController extends Controller
 
                     
                     //SHAKE EACH RGB INDIVIDUALLY
-                    $nr = $fnr + rand(-10,10);
-                    $ng = $fng + rand(-10,10);
-                    $nb = $fnb + rand(-10,10);
+                    $nr = $fnr + rand(-15,15);
+                    $ng = $fng + rand(-15,15);
+                    $nb = $fnb + rand(-15,15);
                     //dd($message, $startR, $startG, $startB, $shake, $fnr , $fng , $fnb, $nr, $ng, $nb);
 
                     //CHECK THE VALUES ARE WITHIN RANGE
@@ -169,7 +230,7 @@ class BreederController extends Controller
         $colors = ["hairCol2","eyeCol", "accentCol", "hairCol",  "baseCol", "accentCol2"];
         $newPony = array([
             'eyes' => $babycolors[1],
-            'token' => uniqid(),
+            'token' => $token,
             'hair' => $babycolors[3],
             'hair2' => $babycolors[0],
             'accent' => $babycolors[2],
@@ -196,7 +257,8 @@ class BreederController extends Controller
             'intel' => $babystats[1],
             'str' => $babystats[2],
             'hp' => $babystats[3],
-            'charm' => $babystats[4]
+            'charm' => $babystats[4],
+            'lineage' => $lineage,
         ]);
 
         event(new NewPony($newPony));

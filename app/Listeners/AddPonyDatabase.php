@@ -82,7 +82,8 @@ class AddPonyDatabase
                     'hairCol2-rgb' => $event->newPony[0]["hair2RGB"],
                     'baseCol-rgb' => $event->newPony[0]["coatRGB"],
                     'accentCol2-rgb' => $event->newPony[0]["accent2RGB"],
-                    'specialtrait' => $babytrait
+                    'specialtrait' => $babytrait,
+                    'lineage' => $event->newPony[0]["lineage"],
                 ]);
                 break;
                 case "birth":
@@ -118,7 +119,8 @@ class AddPonyDatabase
                     'hairCol2-rgb' => $event->newPony[0]["hair2RGB"],
                     'baseCol-rgb' => $event->newPony[0]["coatRGB"],
                     'accentCol2-rgb' => $event->newPony[0]["accent2RGB"],
-                    'specialtrait' => $event->newPony[0]["specialtrait"]
+                    'specialtrait' => $event->newPony[0]["specialtrait"],
+                    'lineage' => $event->newPony[0]["lineage"],
                 ]);
         }
     }

@@ -200,6 +200,7 @@ class GeneratorController extends Controller
             'genes' => $carryID,
             //SHOWN TRAIT NAME
             'babytrait' => $babytrait,
+            'lineage' => '0,0',
             'source' => "generator",
         ]);
 

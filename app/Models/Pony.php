@@ -56,7 +56,9 @@ class Pony extends Model
         'ownerid',
         'genes',
         'lineage',
-        'inbred'
+        'inbred',
+        'filly',
+        'colt',
 
     ];
     protected $table = 'ponys';
