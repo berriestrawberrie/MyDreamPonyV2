@@ -2,7 +2,7 @@
     <div class="flex justify-around items-center">
         <div class="relative p-2  w-1/2">
             <div>
-                <h4 class="text-xs sm:text-lg font-bold">Fillies:{{count($filly)}}</h4>
+                <h4 class="text-xs sm:text-lg font-bold" >Fillies:{{count($filly)}}</h4>
             </div>
             <ul class="p-1  border border-sky-400 rounded-lg flex flex-wrap justify-center items-center h-24 overflow-auto">
                 @if($filly)
@@ -12,7 +12,7 @@
                     $found1 = collect($babies)->firstWhere('token', $filly[$i]);
                     @endphp
                     <a href="/ponyprofile/{{ $found1->ponyid }}">
-                        <img class="mx-auto w-[100px]" src="{{asset('ponys/baby/'. $found1->ponyid.'.png')}}">
+                        <img title="{{ $found1->name }}" class="mx-auto w-[100px]" src="{{asset('ponys/baby/'. $found1->ponyid.'.png')}}">
                     </a>
                 </li>
                 @endfor
@@ -24,7 +24,7 @@
         </div>
         <div class="relative  p-2 ms-1 w-1/2">
             <div>
-                <h4 class="text-xs sm:text-lg font-bold">Colts: {{count($colt)}}</h4>
+                <h4 class="text-xs sm:text-lg font-bold" >Colts: {{count($colt)}}</h4>
             </div>
             <ul class="flex  border border-sky-400 rounded-lg flex-wrap  justify-center items-center h-24 overflow-auto">
                 @if($colt)
@@ -34,7 +34,7 @@
                     $found2 = collect($babies)->firstWhere('token', $colt[$i]);
                     @endphp
                     <a href="/ponyprofile/{{ $found2->ponyid }}">
-                        <img class="mx-auto w-[100px]" src="{{asset('ponys/baby/'. $found2->ponyid.'.png')}}">
+                        <img  title="{{ $found2->name }}" class="mx-auto w-[100px]" src="{{asset('ponys/baby/'. $found2->ponyid.'.png')}}">
                     </a>
                 </li>
                 @endfor
@@ -54,7 +54,7 @@
             <td class="border  border-t-0 border-gray-400  w-[180px]" colspan="4">
                 @if($lineage[0]!=0)
                 <a href="/ponyprofile/{{$lineage[0]}}"> 
-                <img class="mx-auto w-[180px]" src="{{asset('ponys/adult/'. $lineage[0].'.png')}}">
+                <img title="testing" class="mx-auto w-[180px]" src="{{asset('ponys/adult/'. $lineage[0].'.png')}}">
                 </a>
                 @else
                 <img class="mx-auto h-[10px]" src="{{asset('ponys/adult/0.png')}}">

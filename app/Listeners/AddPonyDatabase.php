@@ -98,15 +98,7 @@ class AddPonyDatabase
                     'created_at' => date("Y/m/d"),
                     'ownerid' => Auth::user()->id,
                     'typeid' => $event->newPony[0]["breedID"],
-                    'charm' => $event->newPony[0]["charm"],
-                    'intel'  => $event->newPony[0]["intel"],
-                    'str'  => $event->newPony[0]["str"],
-                    'hp'  => $event->newPony[0]["hp"],
-                    'level' => $event->newPony[0]["level"],
-                    'hunger' => 100,
-                    'health'  => 100,
                     'exp' => 0,
-                    'genes' => $event->newPony[0]["genes"],
                     'eyeCol' => $event->newPony[0]["eyes"],
                     'accentCol' => $event->newPony[0]["accent"],
                     'hairCol' => $event->newPony[0]["hair"],
@@ -120,7 +112,6 @@ class AddPonyDatabase
                     'baseCol-rgb' => $event->newPony[0]["coatRGB"],
                     'accentCol2-rgb' => $event->newPony[0]["accent2RGB"],
                     'specialtrait' => $event->newPony[0]["specialtrait"],
-                    'lineage' => $event->newPony[0]["lineage"],
                 ]);
         }
     }

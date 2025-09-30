@@ -33,7 +33,7 @@ class MakeAdultImage
         $bodys = ["paint"];
         $uncolored = ["hrainbow", "fvulpine"];
         $breedID = $event->newPony[0]["breedID"];
-        $specialtrait = $event->newPony[0]["specialtrait"];
+        $specialtrait = explode(",",$event->newPony[0]["specialtrait"]);
         $traitID = $event->newPony[0]["traitID"];
         $coat = $event->newPony[0]["coat"];
         $hair = $event->newPony[0]["hair"];
@@ -42,43 +42,88 @@ class MakeAdultImage
         $accent = $event->newPony[0]["accent"];
         $accent2 = $event->newPony[0]["accent2"];
 
+        $hairTImg = null;
+        $faceImg = null;
+        $bodyImg = null;
+        $legImg = null;
 
         $pony = BuildPony::where('id', $breedID)->get();
 
         //BUILD THE TRAIT IMAGE
         if ($specialtrait) {
+            
             //PULL THE IMAGE FROM DB BY AVATAR ID
-            $specialtrait = SpecialTrait::where('traitname', $specialtrait)->get();
-            $img = $specialtrait[0][$traitID];
-            //GENERATE GD IMAGE FROM DB BLOB
-            $gdImg = imagecreatefromstring($img);
-            if ($gdImg !== false) {
-                header('Content-Type: image/png');
-                header('Cache-Control', 'max-age=2592000');
-                imageAlphaBlending($gdImg, true);
-                imageSaveAlpha($gdImg, true);
-                //EXTRACT THE SPECIAL TRAIT COLORING FROM ACCENT IF FACE OR BODY
-                if (in_array($specialtrait, $faces) || in_array($specialtrait, $bodys)) {
-                    //IF SPECIAL TRAIT IS BOY OR FACE USE ACCENT2
-                    list($huer, $hueg, $hueb) = sscanf($accent2, "%02x%02x%02x");
-                } else {
-                    //ELSE IT'S HAIR TRAIT SO COLOR WITH HAIR2
-                    list($huer, $hueg, $hueb) = sscanf($hair2, "%02x%02x%02x");
-                }
-                //RECOLOR THE PONY HAIR TRAIT IMAGE IF HAIR IS NOT RAINBOW
-                if (in_array($specialtrait, $uncolored)) {
+            $specialtrait = SpecialTrait::wherein('traitname', $specialtrait)->get();
+            
+            for($i = 0; $i < count($specialtrait); $i++){
+                
+                switch ($specialtrait[$i]["traittype"]) {
+                    case "hair":
+                        //GENERATE GD IMAGE FROM DB BLOB
+                        $hairTImg = imagecreatefromstring($specialtrait[$i][$traitID]);
+                        header('Content-Type: image/png');
+                        header('Cache-Control', 'max-age=2592000');
+                        imageAlphaBlending($hairTImg, true);
+                        imageSaveAlpha($hairTImg, true);
+                        if(in_array($specialtrait[$i]["traitname"], $uncolored)){
+                            //TRAIT IMAGE IS NOT COLORED
+                            imagepng($hairTImg, $file = public_path('ponygen/' . 'ponylistener' . 'specialtraith.png'));
+                        }else{
+                            //TRAIT IMAGE IS COLORED
+                            list($huer, $hueg, $hueb) = sscanf($hair2, "%02x%02x%02x");
+                            imagefilter($hairTImg, IMG_FILTER_COLORIZE, $huer, $hueg, $hueb);
+                            imagepng($hairTImg, $file = public_path('ponygen/' . 'ponylistener' . 'specialtraith.png'));
+                        }
+                        break;
+                    case "face":
+                        $faceImg = imagecreatefromstring($specialtrait[$i][$traitID]); header('Content-Type: image/png');
+                        header('Cache-Control', 'max-age=2592000');
+                        imageAlphaBlending($faceImg, true);
+                        imageSaveAlpha($faceImg, true);
+                        if(in_array($specialtrait[$i]["traitname"], $uncolored)){
+                            //TRAIT IMAGE IS NOT COLORED
+                            imagepng($faceImg, $file = public_path('ponygen/' . 'ponylistener' . 'specialtraitf.png'));
+                        }else{
+                            //TRAIT IMAGE IS COLORED
+                            list($huer, $hueg, $hueb) = sscanf($accent2, "%02x%02x%02x");
+                            imagefilter($faceImg, IMG_FILTER_COLORIZE, $huer, $hueg, $hueb);
+                            imagepng($faceImg, $file = public_path('ponygen/' . 'ponylistener' . 'specialtraithf.png'));
+                        }
+                        break;
+                    case "body":
+                        $bodyImg = imagecreatefromstring($specialtrait[$i][$traitID]);
+                        header('Cache-Control', 'max-age=2592000');
+                        imageAlphaBlending($bodyImg, true);
+                        imageSaveAlpha($bodyImg, true);
+                        if(in_array($specialtrait[$i]["traitname"], $uncolored)){
+                            //TRAIT IMAGE IS NOT COLORED
+                            imagepng($bodyImg, $file = public_path('ponygen/' . 'ponylistener' . 'specialtraitb.png'));
+                        }else{
+                            //TRAIT IMAGE IS COLORED
+                            list($huer, $hueg, $hueb) = sscanf($accent2, "%02x%02x%02x");
+                            imagefilter($bodyImg, IMG_FILTER_COLORIZE, $huer, $hueg, $hueb);
+                            imagepng($bodyImg, $file = public_path('ponygen/' . 'ponylistener' . 'specialtraithb.png'));
+                        }
+                        break;
+                    case "legs":
+                        $legImg = imagecreatefromstring($specialtrait[$i][$traitID]);
+                        header('Cache-Control', 'max-age=2592000');
+                        imageAlphaBlending($legImg, true);
+                        imageSaveAlpha($legImg, true);
+                        if(in_array($specialtrait[$i]["traitname"], $uncolored)){
+                            //TRAIT IMAGE IS NOT COLORED
+                            imagepng($legImg, $file = public_path('ponygen/' . 'ponylistener' . 'specialtraitl.png'));
+                        }else{
+                            //TRAIT IMAGE IS COLORED
+                            list($huer, $hueg, $hueb) = sscanf($accent2, "%02x%02x%02x");
+                            imagefilter($legImg, IMG_FILTER_COLORIZE, $huer, $hueg, $hueb);
+                            imagepng($legImg, $file = public_path('ponygen/' . 'ponylistener' . 'specialtraithl.png'));
+                        }
+                        break;
+                };
+                
+            }//END OF FOR LOOP
 
-                    imagepng($gdImg, $file = public_path('ponygen/' . 'ponylistener' . 'specialtrait.png'));
-                } else {
-                    imagefilter($gdImg, IMG_FILTER_COLORIZE, $huer, $hueg, $hueb);
-                    imagepng($gdImg, $file = public_path('ponygen/' . 'ponylistener' . 'specialtrait.png'));
-                }
-            } else {
-                echo 'An error occured retrieving trait image from DB';
-            }
-        } else {
-            $specialtrait = null;
-        } //END OF TRAIT IMAGE 
 
 
         $ponyimgs = ["imgbase", "imghair", "imgaccent", "imgaccent2", "imgeye", "imgmask", "imgwhite", "imgshade", "imgink"];
@@ -114,8 +159,6 @@ class MakeAdultImage
         header('Cache-Control', 'max-age=2592000');
         imageAlphaBlending($maskImg, true);
         imageSaveAlpha($maskImg, true);
-
-
 
         //COLORED BASE IMAGE
         $img = $pony[0]["imgbase"];
@@ -157,40 +200,33 @@ class MakeAdultImage
         list($huer, $hueg, $hueb) = sscanf($accent2, "%02x%02x%02x");
         imagefilter($accent2Img, IMG_FILTER_COLORIZE, $huer, $hueg, $hueb);
 
-        $specialtrait = $event->newPony[0]["specialtrait"];
-        if ($specialtrait) {
-            //TRAIT IMAGE IS FACE OR BODY
-            if (in_array($specialtrait, $faces) || in_array($specialtrait, $bodys)) {
-                imagecopy($baseImg, $gdImg, 0, 0, 0, 0, 599, 485);
-                imagecopy($baseImg, $hairImg, 0, 0, 0, 0, 599, 485);
-                imagecopy($baseImg, $accentImg, 0, 0, 0, 0, 599, 485);
-                imagecopy($baseImg, $accent2Img, 0, 0, 0, 0, 599, 485);
-                imagecopy($baseImg, $maskImg, 0, 0, 0, 0, 599, 485);
-                imagecopy($baseImg, $shadeImg, 0, 0, 0, 0, 599, 485);
-                imagecopy($baseImg, $whiteImg, 0, 0, 0, 0, 599, 485);
-                imagecopy($baseImg, $inkImg, 0, 0, 0, 0, 599, 485);
-            }
-            //TRAIT IMAGE IS HAIR
-            if (in_array($specialtrait, $hairs)) {
-                imagecopy($baseImg, $hairImg, 0, 0, 0, 0, 599, 485);
-                imagecopy($baseImg, $gdImg, 0, 0, 0, 0, 599, 485);
-                imagecopy($baseImg, $accentImg, 0, 0, 0, 0, 599, 485);
-                imagecopy($baseImg, $accent2Img, 0, 0, 0, 0, 599, 485);
-                imagecopy($baseImg, $maskImg, 0, 0, 0, 0, 599, 485);
-                imagecopy($baseImg, $shadeImg, 0, 0, 0, 0, 599, 485);
-                imagecopy($baseImg, $whiteImg, 0, 0, 0, 0, 599, 485);
-                imagecopy($baseImg, $inkImg, 0, 0, 0, 0, 599, 485);
-            }
-        } else {
-            //NO VISIBLE TRAIT SO EXCLUDE TRAIT IMAGE
-            imagecopy($baseImg, $hairImg, 0, 0, 0, 0, 599, 485);
-            imagecopy($baseImg, $accentImg, 0, 0, 0, 0, 599, 485);
-            imagecopy($baseImg, $accent2Img, 0, 0, 0, 0, 599, 485);
-            imagecopy($baseImg, $maskImg, 0, 0, 0, 0, 599, 485);
-            imagecopy($baseImg, $shadeImg, 0, 0, 0, 0, 599, 485);
-            imagecopy($baseImg, $whiteImg, 0, 0, 0, 0, 599, 485);
-            imagecopy($baseImg, $inkImg, 0, 0, 0, 0, 599, 485);
+        //GENERATE THE BASE PONY IMAGE 
+        imagecopy($baseImg, $hairImg, 0, 0, 0, 0, 599, 485);
+        imagecopy($baseImg, $accentImg, 0, 0, 0, 0, 599, 485);
+        imagecopy($baseImg, $accent2Img, 0, 0, 0, 0, 599, 485);
+        
+        //ADD THE TRAITS CONDITIONALLY
+        if(!is_null($hairTImg)){
+            imagecopy($baseImg, $hairTImg, 0, 0, 0, 0, 599, 485);
+            imagedestroy($hairTImg);
         }
+        if(!is_null($bodyImg)){
+            imagecopy($baseImg, $bodyImg, 0, 0, 0, 0, 599, 485);
+            imagedestroy($bodyImg);
+        }
+        if(!is_null($faceImg)){
+            imagecopy($baseImg, $faceImg, 0, 0, 0, 0, 599, 485);
+            imagedestroy($faceImg);
+        } 
+        if(!is_null($legImg)){
+            imagecopy($baseImg, $legImg, 0, 0, 0, 0, 599, 485);
+            imagedestroy($legImg);
+        }
+        //FINISH THE PONY IMAGE
+        imagecopy($baseImg, $maskImg, 0, 0, 0, 0, 599, 485);
+        imagecopy($baseImg, $shadeImg, 0, 0, 0, 0, 599, 485);
+        imagecopy($baseImg, $whiteImg, 0, 0, 0, 0, 599, 485);
+        imagecopy($baseImg, $inkImg, 0, 0, 0, 0, 599, 485);
         //GET THE PONY ID
         $ponyID = Pony::where('token', $token)
             ->get();
@@ -217,5 +253,7 @@ class MakeAdultImage
         imagedestroy($whiteImg);
         imagedestroy($inkImg);
         imagedestroy($maskImg);
+
     }
+}
 }

@@ -11,4 +11,8 @@
 
 
   }
+ //TOOLTIPS
+  $( function() {
+    $( document ).tooltip();
+  } );
 

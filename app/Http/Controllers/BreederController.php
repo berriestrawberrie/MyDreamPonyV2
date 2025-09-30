@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Events\NewBabyPony;
+
 use App\Events\NewPony;
+use App\Events\CalculateGenetic;
 use App\Models\Pony;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -35,66 +36,35 @@ class BreederController extends Controller
         $breeders = [intval($request->input('breeder1')), intval($request->input('breeder2'))];
         $ponys = Pony::wherein('ponyid', $breeders)->get();
 
-        //ORDER THE DAM AND SIRE
-        if($ponys[0]["sex"] === "female"){
-            $dam = $ponys[0];
-            $sire = $ponys[1];
-        }else{
-            $dam = $ponys[1];
-            $sire = $ponys[0];
-        }
-        //CALCULATE THE LINEAGE
-        $damLine = explode(",",$dam["lineage"]);
-        $sireLine = explode(",",$sire["lineage"]);
-        if(count($damLine)<6){
-            $missing = 6 - count($damLine);
-            $zeros = array_fill(0, $missing, 0);
-            $newDam = array_merge($damLine,$zeros);
-            $newDamList = implode(",",$newDam);
-        }else{
-            $newDam = array_slice($damLine, 0, 6);
-            $newDamList = implode(",",$newDam);
-        }
-        if(count($sireLine)<6){
-            $missing = 6 - count($sireLine);
-            $zeros = array_fill(0, $missing, 0);
-            $newSire = array_merge($sireLine,$zeros);
-            $newSireList = implode(",",$newSire);
-        }else{
-            $newSire = array_slice($sireLine, 0,6);
-            $newSireList = implode(",",$newSire);
-        }
-        //dd($newDamList , $newSireList);
 
-        $lineage = $dam["ponyid"]. ",". $sire["ponyid"]. ",".$newDamList . ",". $newSireList;
         //GET BABY SEX
         $options = ["female", "male"];
         $sex = $options[array_rand($options)];
         $token = uniqid();
         //ADD BABY TO DAM AND SIRE LIST
         if($sex === "female"){
-           Pony::where('ponyid', $dam["ponyid"])
+           Pony::where('ponyid', $ponys[0]["ponyid"])
            ->update([
-            'filly' => $dam["filly"] .",". $token,
+            'filly' => $ponys[0]["filly"] .",". $token,
            ]);
-            Pony::where('ponyid', $sire["ponyid"])
+            Pony::where('ponyid', $ponys[1]["ponyid"])
            ->update([
-            'filly' => $dam["sire"] .",". $token,
+            'filly' => $ponys[1]["filly"] .",". $token,
            ]);
 
         }else{
-           Pony::where('ponyid', $dam["ponyid"])
+           Pony::where('ponyid', $ponys[0]["ponyid"])
            ->update([
-            'colt' => $dam["colt"] .",". $token,
+            'colt' => $ponys[0]["colt"] .",". $token,
            ]);
-            Pony::where('ponyid', $sire["ponyid"])
+            Pony::where('ponyid', $ponys[1]["ponyid"])
            ->update([
-            'colt' => $dam["colt"] .",". $token,
+            'colt' => $ponys[1]["colt"] .",". $token,
            ]);
 
         }
 
-
+    
 
 
         $colors = ["hairCol2","eyeCol", "accentCol", "hairCol",  "baseCol", "accentCol2"];
@@ -102,6 +72,7 @@ class BreederController extends Controller
         $babycolors = [];
         $babycolorsRGB = [];
         $babystats = [];
+        $babytrait = [];
 
 
         //MIX COLORS BY BREEDING TYPE (REGULAR BREEDING)
@@ -190,11 +161,15 @@ class BreederController extends Controller
         }
 
         //DETERMINE THE BABY VISIBLE TRAITS
-        if ($ponys[0]["specialtrait"] === $ponys[1]["specialtrait"]) {
-            $babytrait = $ponys[0]["specialtrait"];
-        } else {
-            $babytrait = null;
+        $damTraitList = explode(",",$ponys[0]["specialtrait"]);
+        $sireTraitList = explode(",",$ponys[1]["specialtrait"]);
+
+        for($i = 0; $i < count($damTraitList); $i++){
+            if($damTraitList[$i]===$sireTraitList[$i]){
+                $babytrait[] = $damTraitList[$i];
+            }
         }
+        $babytrait = implode(",", $babytrait);
 
         //CACLUATE THE BREED BY PARENTS BREED 
         $types = [$ponys[0]["typeid"], $ponys[1]["typeid"]];
@@ -227,6 +202,7 @@ class BreederController extends Controller
             $traitID = '"12"';
             $breedID = '12';
         }
+
         $colors = ["hairCol2","eyeCol", "accentCol", "hairCol",  "baseCol", "accentCol2"];
         $newPony = array([
             'eyes' => $babycolors[1],
@@ -235,7 +211,6 @@ class BreederController extends Controller
             'hair2' => $babycolors[0],
             'accent' => $babycolors[2],
             'accent2' => $babycolors[5],
-            'specialtrait' => $babytrait,
             'coat' => $babycolors[4],
             'eyesRGB' => $babycolorsRGB[1],
             'coatRGB' => $babycolorsRGB[4],
@@ -248,22 +223,13 @@ class BreederController extends Controller
             'breed' => $breedCalc,
             'breedID' => $breedID,
             'traitID' => $traitID,
-            //LIST OF GENES
-            'genes' => "",
-            //SHOWN TRAIT NAME
-            'babytrait' => $babytrait,
             'source' => "birth",
-            'level' =>  $babystats[0],
-            'intel' => $babystats[1],
-            'str' => $babystats[2],
-            'hp' => $babystats[3],
-            'charm' => $babystats[4],
-            'lineage' => $lineage,
         ]);
 
-        event(new NewPony($newPony));
-        event(new NewBabyPony($newPony));
 
+        event(new NewPony($newPony));
+        event(new CalculateGenetic($ponys, $token, $newPony));
+        
         // $colorsJson = json_encode($finalcolors);
         return redirect(route('nursery', ['userID' => Auth::user()->id]))->with('success', 'A new ponys is born!');
     }

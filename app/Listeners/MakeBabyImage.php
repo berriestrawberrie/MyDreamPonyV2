@@ -24,7 +24,7 @@ class MakeBabyImage
      */
     public function handle(NewBabyPony $event): void
     {
-        //
+        
         $colors = ["eyes", "hair", "hair2", "accent", "accent2", "coat"];
         //ALL CURRENTLY AVAILABLE TRAITS
         $token = $event->newPony[0]["token"];
@@ -34,6 +34,7 @@ class MakeBabyImage
         $bodys = ["paint"];
         $uncolored = ["hrainbow", "fvulpine"];
         $breedID = $event->newPony[0]["breedID"];
+        //NEXT ISSUE THE SPECIAL TRAITS NEED TO COME FROM THE DATABASE. 
         $babytrait = $event->newPony[0]["babytrait"];
         $traitID = $event->newPony[0]["traitID"];
         $coat = $event->newPony[0]["coat"];

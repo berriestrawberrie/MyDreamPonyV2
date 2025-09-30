@@ -40,7 +40,7 @@ class PonyController extends Controller
     {
 
         $getPony = Pony::where('ponyid', $request->input('ponyid'))->get();
-
+       
         //DETERMINE THE TRAIT # BY SEX AND BREED
         if ($getPony[0]["typeid"] == 12 && $getPony[0]["sex"] == "male") {
             $traitID = '"4"';
@@ -76,6 +76,7 @@ class PonyController extends Controller
             $typeid = 7;
         }
 
+        
         //ACTUALLY AGE UP THE PONY
         Pony::where('ponyid', $request->input('ponyid'))
             ->update([
