@@ -70,6 +70,7 @@ class AddPonyDatabase
                     'health'  => 100,
                     'exp' => 0,
                     'genes' => $stringGene,
+                    'specialtrait' => $event->newPony[0]["babytrait"],
                     'eyeCol' => $event->newPony[0]["eyes"],
                     'accentCol' => $event->newPony[0]["accent"],
                     'hairCol' => $event->newPony[0]["hair"],
@@ -87,30 +88,30 @@ class AddPonyDatabase
                 break;
             case "birth":
 
-            /*CREATE THE NEW PONY     */
-            Pony::create([
-                'sex' => $event->newPony[0]["sex"],
-                'name' => "Birthed",
-                'token' => $event->newPony[0]["token"],
-                'age' => 0,
-                'stable_assign' => 0,
-                'created_at' => date("Y/m/d"),
-                'ownerid' => Auth::user()->id,
-                'typeid' => $event->newPony[0]["breedID"],
-                'exp' => 0,
-                'eyeCol' => $event->newPony[0]["eyes"],
-                'accentCol' => $event->newPony[0]["accent"],
-                'hairCol' => $event->newPony[0]["hair"],
-                'hairCol2' => $event->newPony[0]["hair2"],
-                'baseCol' => $event->newPony[0]["coat"],
-                'accentCol2' => $event->newPony[0]["accent2"],
-                'eyeCol-rgb' => $event->newPony[0]["eyesRGB"],
-                'accentCol-rgb' => $event->newPony[0]["accentRGB"],
-                'hairCol-rgb' => $event->newPony[0]["hairRGB"],
-                'hairCol2-rgb' => $event->newPony[0]["hair2RGB"],
-                'baseCol-rgb' => $event->newPony[0]["coatRGB"],
-                'accentCol2-rgb' => $event->newPony[0]["accent2RGB"],
-            ]);
+                /*CREATE THE NEW PONY     */
+                Pony::create([
+                    'sex' => $event->newPony[0]["sex"],
+                    'name' => "Birthed",
+                    'token' => $event->newPony[0]["token"],
+                    'age' => 0,
+                    'stable_assign' => 0,
+                    'created_at' => date("Y/m/d"),
+                    'ownerid' => Auth::user()->id,
+                    'typeid' => $event->newPony[0]["breedID"],
+                    'exp' => 0,
+                    'eyeCol' => $event->newPony[0]["eyes"],
+                    'accentCol' => $event->newPony[0]["accent"],
+                    'hairCol' => $event->newPony[0]["hair"],
+                    'hairCol2' => $event->newPony[0]["hair2"],
+                    'baseCol' => $event->newPony[0]["coat"],
+                    'accentCol2' => $event->newPony[0]["accent2"],
+                    'eyeCol-rgb' => $event->newPony[0]["eyesRGB"],
+                    'accentCol-rgb' => $event->newPony[0]["accentRGB"],
+                    'hairCol-rgb' => $event->newPony[0]["hairRGB"],
+                    'hairCol2-rgb' => $event->newPony[0]["hair2RGB"],
+                    'baseCol-rgb' => $event->newPony[0]["coatRGB"],
+                    'accentCol2-rgb' => $event->newPony[0]["accent2RGB"],
+                ]);
             break;
         }//END SWITCHCASE
     }

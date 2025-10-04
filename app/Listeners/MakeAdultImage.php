@@ -54,6 +54,8 @@ class MakeAdultImage
             
             //PULL THE IMAGE FROM DB BY AVATAR ID
             $specialtrait = SpecialTrait::wherein('traitname', $specialtrait)->get();
+
+
             
             for($i = 0; $i < count($specialtrait); $i++){
                 
@@ -105,19 +107,19 @@ class MakeAdultImage
                             imagepng($bodyImg, $file = public_path('ponygen/' . 'ponylistener' . 'specialtraithb.png'));
                         }
                         break;
-                    case "legs":
+                    case "leg":
                         $legImg = imagecreatefromstring($specialtrait[$i][$traitID]);
                         header('Cache-Control', 'max-age=2592000');
                         imageAlphaBlending($legImg, true);
                         imageSaveAlpha($legImg, true);
                         if(in_array($specialtrait[$i]["traitname"], $uncolored)){
                             //TRAIT IMAGE IS NOT COLORED
-                            imagepng($legImg, $file = public_path('ponygen/' . 'ponylistener' . 'specialtraitl.png'));
+                            imagepng($legImg, $file = public_path('ponygen/' . 'ponylistener' . 'specialleg.png'));
                         }else{
                             //TRAIT IMAGE IS COLORED
                             list($huer, $hueg, $hueb) = sscanf($accent2, "%02x%02x%02x");
                             imagefilter($legImg, IMG_FILTER_COLORIZE, $huer, $hueg, $hueb);
-                            imagepng($legImg, $file = public_path('ponygen/' . 'ponylistener' . 'specialtraithl.png'));
+                            imagepng($legImg, $file = public_path('ponygen/' . 'ponylistener' . 'specialleg.png'));
                         }
                         break;
                 };

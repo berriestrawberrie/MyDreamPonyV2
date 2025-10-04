@@ -48,84 +48,110 @@
         <!--SPECIAL TRAITS FOR DAM-->
         <fieldset class="border p-1">
             <h2>Hair Traits</h2>
-            <hr>
-            <div class="flex">
-                @foreach($traits as $trait)
-                    @if($trait["traittype"]=="hair")
-                        <label for="{{$trait["traitname"]}}">
-                        <input type="radio" id="{{$trait["traitname"]}}" name="specialtrait1" value="{{$trait["traitname"]}}">
-                         
-                        <img   class="md:w-48" src="/trait/genform/{{$trait["traitid"]}}"></label>
-                    @endif
-                @endforeach
-            </div>
+                <hr>
+                <div class="flex">
+                    @foreach($traits as $trait)
+                        @if($trait["traittype"]=="hair")
+                            <label for="{{$trait["traitname"]}}">
+                            <input type="radio" id="{{$trait["traitname"]}}" name="specialtrait1" value="{{$trait["traitname"]}}">
+                            
+                            <img title="{{$trait["traitname"]}}"  class="md:w-48" src="/trait/genform/{{$trait["traitid"]}}"></label>
+                        @endif
+                    @endforeach
+                </div>
             <h2>Face Traits</h2>
-            <hr>
-            <div class="flex text-center">
-                @foreach($traits as $trait)
-                    @if($trait["traittype"]=="face")
-                        <label for="{{$trait["traitname"]}}">
-                        <input type="radio" id="{{$trait["traitname"]}}" name="specialtrait1" value="{{$trait["traitname"]}}">
-                         
-                        <img   class="md:w-48" src="/trait/genform/{{$trait["traitid"]}}"></label>
-                    @endif
-                @endforeach
-            </div>
+                <hr>
+                <div class="flex text-center">
+                    @foreach($traits as $trait)
+                        @if($trait["traittype"]=="face")
+                            <label for="{{$trait["traitname"]}}">
+                            <input type="radio" id="{{$trait["traitname"]}}" name="specialtrait1" value="{{$trait["traitname"]}}">
+                            
+                            <img  title="{{$trait["traitname"]}}"  class="md:w-48" src="/trait/genform/{{$trait["traitid"]}}"></label>
+                        @endif
+                    @endforeach
+                </div>
             <h2>Body Traits</h2>
-            <hr>
-            <div class="flex text-center">
-                @foreach($traits as $trait)
-                    @if($trait["traittype"]=="body")
-                        <label for="{{$trait["traitname"]}}">
-                        <input type="radio" id="{{$trait["traitname"]}}" name="specialtrait1" value="{{$trait["traitname"]}}">
-                         
-                        <img   class="md:w-48" src="/trait/genform/{{$trait["traitid"]}}"></label>
-                    @endif
-                @endforeach
-            </div>
-
+                <hr>
+                <div class="flex text-center">
+                    @foreach($traits as $trait)
+                        @if($trait["traittype"]=="body")
+                            <label for="{{$trait["traitname"]}}">
+                            <input type="radio" id="{{$trait["traitname"]}}" name="specialtrait1" value="{{$trait["traitname"]}}">
+                            
+                            <img  title="{{$trait["traitname"]}}"  class="md:w-48" src="/trait/genform/{{$trait["traitid"]}}"></label>
+                        @endif
+                    @endforeach
+                </div>
+            <h2>Leg Traits</h2>
+                <hr>
+                <div class="flex text-center">
+                    @foreach($traits as $trait)
+                        @if($trait["traittype"]=="leg")
+                            <label for="{{$trait["traitname"]}}">
+                            <input type="radio" id="{{$trait["traitname"]}}" name="specialtrait1" value="{{$trait["traitname"]}}">
+                            
+                            <img  title="{{$trait["traitname"]}}"  class="md:w-48" src="/trait/genform/{{$trait["traitid"]}}"></label>
+                        @endif
+                    @endforeach
+                </div>
         </fieldset>
         <!--SPECIAL TRAITS FOR SIRE-->
         <fieldset class="border p-1">
             <h2>Hair Traits</h2>
-            <hr>
-            <div class="flex text-center">
-                @foreach($traits as $trait)
-                    @if($trait["traittype"]=="hair")
-                        <label for="{{$trait["traitname"]}}2">
-                        <input type="radio" id="{{$trait["traitname"]}}2" name="specialtrait2" value="{{$trait["traitname"]}}">
-                         
-                        <img   class="md:w-48" src="/trait/genform/{{$trait["traitid"]}}"></label>
-                    @endif
-                @endforeach
-            </div>
+                <hr>
+                <div class="flex text-center">
+                    @foreach($traits as $trait)
+                        @if($trait["traittype"]=="hair")
+                            <label for="{{$trait["traitname"]}}2">
+                            <input type="radio" id="{{$trait["traitname"]}}2" name="specialtrait2" value="{{$trait["traitname"]}}">
+                            
+                            <img title="{{$trait["traitname"]}}"  title="{{$trait["traitname"]}}"  class="md:w-48" src="/trait/genform/{{$trait["traitid"]}}"></label>
+                        @endif
+                    @endforeach
+                </div>
             <h2>Face Traits</h2>
-            <hr>
-            <div class="flex text-center">
-                @foreach($traits as $trait)
-                    @if($trait["traittype"]=="face")
-                        <label for="{{$trait["traitname"]}}2">
-                        <input type="radio" id="{{$trait["traitname"]}}2" name="specialtrait2" value="{{$trait["traitname"]}}">
-                         
-                        <img   class="md:w-48" src="/trait/genform/{{$trait["traitid"]}}"></label>
-                    @endif
-                @endforeach
-            </div>
+                <hr>
+                <div class="flex text-center">
+                    @foreach($traits as $trait)
+                        @if($trait["traittype"]=="face")
+                            <label for="{{$trait["traitname"]}}2">
+                            <input type="radio" id="{{$trait["traitname"]}}2" name="specialtrait2" value="{{$trait["traitname"]}}">
+                            
+                            <img title="{{$trait["traitname"]}}"   class="md:w-48" src="/trait/genform/{{$trait["traitid"]}}"></label>
+                        @endif
+                    @endforeach
+                </div>
             <h2>Body Traits</h2>
-            <hr>
-            <div class="flex text-center">
-                @foreach($traits as $trait)
-                    @if($trait["traittype"]=="body")
-                        <label for="{{$trait["traitname"]}}2">
-                        <input type="radio" id="{{$trait["traitname"]}}2" name="specialtrait2" value="{{$trait["traitname"]}}">
-                         
-                        <img  class="md:w-48" src="/trait/genform/{{$trait["traitid"]}}"></label>
-                    @endif
-                @endforeach
-            </div>
+                <hr>
+                <div class="flex text-center">
+                    @foreach($traits as $trait)
+                        @if($trait["traittype"]=="body")
+                            <label for="{{$trait["traitname"]}}2">
+                            <input type="radio" id="{{$trait["traitname"]}}2" name="specialtrait2" value="{{$trait["traitname"]}}">
+                            
+                            <img title="{{$trait["traitname"]}}"  class="md:w-48" src="/trait/genform/{{$trait["traitid"]}}"></label>
+                        @endif
+                    @endforeach
+                </div>
+            <h2>Leg Traits</h2>
+                <hr>
+                <div class="flex text-center">
+                    @foreach($traits as $trait)
+                        @if($trait["traittype"]=="leg")
+                            <label for="{{$trait["traitname"]}}2">
+                            <input type="radio" id="{{$trait["traitname"]}}2" name="specialtrait2" value="{{$trait["traitname"]}}">
+                            
+                            <img title="{{$trait["traitname"]}}"  class="md:w-48" src="/trait/genform/{{$trait["traitid"]}}"></label>
+                        @endif
+                    @endforeach
+                </div>
 
         </fieldset>
     </div>
     <button type="submit">Submit</button>
 </form>
+
+    <script type="text/javascript" src="{{ asset('js/ponygen.js') }}">
+    </script>
 @endsection('content')

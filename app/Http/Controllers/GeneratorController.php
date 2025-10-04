@@ -44,6 +44,7 @@ class GeneratorController extends Controller
         $carry = [];
         $trait1 = $request->input("specialtrait1");
         $trait2 = $request->input("specialtrait2");
+        
 
         if ($trait1 === $trait2) {
             $babytrait = $trait1;
@@ -63,6 +64,7 @@ class GeneratorController extends Controller
         $newcolors = [];
         $finalcolors = [];
         $finalcolorsRGB = [];
+
 
         //DETERMINE THE BABY COLOR MIX RANDOMIZATION
         for ($i = 0; $i < count($colors); $i++) {

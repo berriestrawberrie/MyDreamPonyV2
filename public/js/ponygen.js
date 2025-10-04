@@ -1,0 +1,4 @@
+//TOOLTIPS
+$(function () {
+    $(document).tooltip();
+});

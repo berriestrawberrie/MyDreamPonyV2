@@ -34,8 +34,9 @@ class MakeBabyImage
         $hairs = ["streak", "hfade", "hrainbow"];
         $faces = ["blaze", "ffade", "fvulpine"];
         $none = ["none"];
-        $bodys = ["paint"];
-        $uncolored = ["hrainbow", "fvulpine"];
+        $bodys = ["paint","belly","underbelly"];
+        $legs = ["stocking"];
+        $uncolored = ["hrainbow", "fvulpine","paint","stocking"];
         $breedID = $event->newPony[0]["breedID"];
         //NEXT ISSUE THE SPECIAL TRAITS NEED TO COME FROM THE DATABASE. 
         $babytrait = explode(",", $baby[0]["specialtrait"]);
@@ -54,7 +55,7 @@ class MakeBabyImage
         $faceTraitImg = null;
         $bodyTraitImg = null;
         $legTraitImg = null;
-
+        
         //BUILD THE TRAIT IMAGE
         if (!empty($babytrait)) {
             //PULL THE IMAGE FROM DB BY AVATAR ID
@@ -68,8 +69,8 @@ class MakeBabyImage
                     header('Cache-Control', 'max-age=2592000');
                     imageAlphaBlending($gdImg, true);
                     imageSaveAlpha($gdImg, true);
-                    //EXTRACT THE SPECIAL TRAIT COLORING FROM ACCENT IF FACE OR BODY
-                    if (in_array($babytrait[$i], $faces) || in_array($babytrait[$i], $bodys)) {
+                    //EXTRACT THE SPECIAL TRAIT COLORING FROM ACCENT IF FACE OR BODY OR LEGS
+                    if (in_array($babytrait[$i], $faces) || in_array($babytrait[$i], $bodys)||in_array($babytrait[$i], $legs)) {
                         //IF SPECIAL TRAIT IS BOY OR FACE USE ACCENT2
                         list($huer, $hueg, $hueb) = sscanf($accent2, "%02x%02x%02x");
                     } else {
@@ -101,8 +102,12 @@ class MakeBabyImage
                     $faceTraitImg = $gdImg;
                     break;
                     case "paint":
+                    case "underbelly":
+                    case "belly":
                     $bodyTraitImg = $gdImg;
                     break;
+                    case "stocking":
+                    $legTraitImg = $gdImg;
                 }
                 
             }//END OF FOR LOOP
