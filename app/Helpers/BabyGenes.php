@@ -41,6 +41,7 @@ class BabyGenes
                 }
                 $baby_carry = null;
             }
+            return [$shown_Baby, $baby_carry];
 
         }//END OF BOTH SHOWN
 
@@ -84,7 +85,7 @@ class BabyGenes
                 $baby_carry = null;
                 }
             }
-            
+            return [$shown_Baby, $baby_carry];
         }
 
         //IF PARENTS HAVE NO SHOWN GENES AND ONLY CARRY
@@ -128,15 +129,14 @@ class BabyGenes
                 }
 
             }
-    
+            return [$shown_Baby, $baby_carry];
         }//END OF CARRY ONLY NO SHOW
 
         
-        /*dd("DAM HAIR GENES? :", $shown_D,"SIRE HAIR GENES? :", $shown_S,
+       /* dd("DAM HAIR GENES? :", $shown_D,"SIRE HAIR GENES? :", $shown_S,
         "DAM CARRY GENES: ", $carry_D, "SIRE CARRY GENES: ", $carry_S,
-        "BABY SHOWN: ", $shown_Baby,"BABY CARRY: ", $baby_carry);*/
+        "BABY SHOWN: ", $shown_Baby,"BABY CARRY: ", $baby_carry); */
 
-        return [$shown_Baby, $baby_carry];
 
     }//END OF PUBLIC FUNCTION
 }

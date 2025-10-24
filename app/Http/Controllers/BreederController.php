@@ -226,6 +226,7 @@ class BreederController extends Controller
             'source' => "birth",
         ]);
 
+  
 
         event(new NewPony($newPony));
         event(new CalculateGenetic($ponys, $token, $newPony));

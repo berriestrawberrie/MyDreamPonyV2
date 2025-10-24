@@ -54,7 +54,7 @@
             <td class="border  border-t-0 border-gray-400  w-[180px]" colspan="4">
                 @if($lineage[0]!=0)
                 <a href="/ponyprofile/{{$lineage[0]}}"> 
-                <img title="testing" class="mx-auto w-[180px]" src="{{asset('ponys/adult/'. $lineage[0].'.png')}}">
+                <img  class="mx-auto w-[180px]" src="{{asset('ponys/adult/'. $lineage[0].'.png')}}">
                 </a>
                 @else
                 <img class="mx-auto h-[10px]" src="{{asset('ponys/adult/0.png')}}">

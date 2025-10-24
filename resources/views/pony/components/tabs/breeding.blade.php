@@ -7,18 +7,20 @@
                 <label for="breeder">Breeding Partner:</label>
                 <input class="hidden" type="text" value="{{$pony[0]["ponyid"]}}" name="breeder1">
                 <select id="breeder2" name="breeder2" onchange="selectMate()">
-
+                @if(!is_null($owned))
                     @foreach($owned as $item)
                         @if($item->age >= 14)
                         <option value="{{$item->ponyid}}">{{$item->sex}}: {{$item->name}}(#{{$item->ponyid}})</option>
                         @endif
                     @endforeach
-                    
+                @endif
                 </select>
                 <button id="breed-confirm">Breed</button>
             </div>
             <div>
+                @if(!is_null($owned))
                 <img id="breeder-img" src="/ponys/adult/{{$owned[0]["ponyid"]}}.png">
+                @endif
             </div>
 
         </fieldset>

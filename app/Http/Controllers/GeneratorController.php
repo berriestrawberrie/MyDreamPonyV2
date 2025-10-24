@@ -50,7 +50,7 @@ class GeneratorController extends Controller
             $babytrait = $trait1;
         } else {
             $carry = [$trait1, $trait2];
-            $carryID = [];
+            
             //DETERMINE THE CARRY CODES FOR CARRIED GENES
             foreach ($carry as $i) {
                 $special = SpecialTrait::where('traitname', $i)->get();

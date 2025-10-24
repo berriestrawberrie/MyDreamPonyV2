@@ -28,6 +28,7 @@ class CalculateGenes
 
         $damTraits = explode(",",$event->ponys[0]["specialtrait"]);
         $sireTraits = explode(",",$event->ponys[1]["specialtrait"]);
+        
         //CONVERT ALL TRAITS TO NUMERIC
         $damNumeric = SpecialTrait::wherein("traitname", $damTraits)
                     ->get([
@@ -53,7 +54,7 @@ class CalculateGenes
             for($i = 0 ; $i < count($sireNumeric); $i++){
                 $sireGenes[] = $sireNumeric[$i]["traitid"];
             }
-
+            
         //SORT THE HAIR GENES
             $damH = array_filter($damGenes, function($gene) {
                         return in_array($gene,[1, 1.5 , 6, 6.5 , 7 , 7.5]);
@@ -63,10 +64,10 @@ class CalculateGenes
             });
             //SORT THE BODY GENES
             $damB = array_filter($damGenes, function($gene) {
-                        return in_array($gene,[4,4.5]);
+                        return in_array($gene,[4,4.5,9,9.5,10,10.5]);
             });
             $sireB = array_filter($sireGenes, function($gene) {
-                        return in_array($gene,[4,4.5]);
+                        return in_array($gene,[4,4.5,9,9.5,10,10.5]);
             });
             //SORT THE FACE GENES
             $damF = array_filter($damGenes, function($gene) {
@@ -82,16 +83,18 @@ class CalculateGenes
             $sireF = array_filter($sireGenes, function($gene) {
                         return in_array($gene,[2,2.5,5,5.5,8,8.5]);
             }); 
-            /*SORT THE LEG GENES
+            //SORT THE LEG GENES
             $damL = array_filter($damGenes, function($gene) {
-                        return in_array($gene,[]);
+                        return in_array($gene,[11,11.5]);
             });
             $sireL = array_filter($sireGenes, function($gene) {
-                        return in_array($gene,[]);
+                        return in_array($gene,[11,11.5]);
             }); 
-            */    
+              
+
         $final_shown = [];
         $final_carry = [];
+        
 //CALCULATE THE HAIR
         if(!empty($damH)|| !empty($sireH)){
             $shown_HD = array_filter($damH, function($gene){return is_int($gene);}); 
@@ -103,6 +106,7 @@ class CalculateGenes
             $hairGenes = BabyGenes::getGenes($shown_HD,$carry_HD,$all_HS,$shown_HS,$carry_HS);
             $final_shown[] = $hairGenes[0];
             $final_carry[] =$hairGenes[1];
+            
         }
 //CALCULATE THE FACE
         if(!empty($sireF)||!empty($damF)){
@@ -165,6 +169,7 @@ class CalculateGenes
                     'specialtrait' => $final_shownName2,
                     'genes' => $final_carry
                 ]);
+                
             event(new NewBabyPony($event->newPony));
 
     }

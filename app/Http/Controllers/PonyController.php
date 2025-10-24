@@ -19,10 +19,13 @@ class PonyController extends Controller
     {
 
         $pony = Pony::where('ponyid', $ponyid)->get();
-        $owned = false;
         $owned = Pony::where('ownerid', Auth::user()->id)
             ->where('sex', '!=', $pony[0]["sex"])
             ->get();
+        //FALSEIFY OWNED IF NO OWNED PONIES EXISTS
+        if(count($owned)===0){
+            $owned = null;
+        }
         $lineage = explode(",", $pony[0]["lineage"]);
         //RESET INDEX AFTER REMOVING NULLS
         $filly = array_values(array_filter(explode(",", $pony[0]["filly"])));

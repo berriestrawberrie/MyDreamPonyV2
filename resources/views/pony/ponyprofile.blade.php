@@ -5,8 +5,8 @@
 @section('page-content')
 <!--NEXT/PREVIOUS PONY ARROWS-->
 <div class=" flex justify-between -mb-2">
-    <a href="/previouspony/{{ $pony[0]["stable_assign"] }}/{{ $pony[0]["ponyid"] }}"><img class="hover:brightness-115" src="{{asset('site/caret-left.png')}}" ></a>
-    <a href="/nextpony/{{ $pony[0]["stable_assign"] }}/{{ $pony[0]["ponyid"] }}""><img class="hover:brightness-115 " src="{{asset('site/caret.png')}}" ></a>
+    <a href="/previouspony/{{ $pony[0]["stable_assign"] }}/{{ $pony[0]["ponyid"] }}"><img class="hover:brightness-115 w-[30px]" src="{{asset('site/caret-left2.png')}}" ></a>
+    <a href="/nextpony/{{ $pony[0]["stable_assign"] }}/{{ $pony[0]["ponyid"] }}""><img class="hover:brightness-115 w-[30px]" src="{{asset('site/caret2.png')}}" ></a>
 </div>
 
 <div class="flex flex-col xl:flex-row xl:justify-evenly mb-[50px]">

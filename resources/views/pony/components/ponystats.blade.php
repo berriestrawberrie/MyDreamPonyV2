@@ -4,8 +4,8 @@
         <div >
             <h5>HP: {{$pony[0]["health"]}} /100</h5>
             <div class="relative">
-                <img class="w-[200px]" src="{{asset('site/emptyhp.svg')}}">
-                <div class="border border-red-800 bg-gradient-to-b from-red-400 via-red-600 to-red-700 absolute rounded-md top-[10px] left-[40px]  h-[18px]" style="max-width:142px; width: {{$pony[0]["health"]}}%;"></div>
+                <img class="w-[200px]" src="{{asset('site/hpbar2.png')}}">
+                <div class="border border-red-800 bg-gradient-to-b from-red-400 via-red-600 to-red-700 absolute rounded-md top-[17px] left-[55px]  h-[15px]" style="max-width:133px; width: {{$pony[0]["health"]}}%;"></div>
             </div>
         </div>
         <div>

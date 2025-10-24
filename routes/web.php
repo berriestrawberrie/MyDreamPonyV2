@@ -60,10 +60,7 @@ Route::middleware([LoggedInUser::class])->group(function () {
     
     //CONTESTS ROUTES
     Route::get('/contests', [ContestController::class, 'contests'])->name('contest.home');
-    Route::post('/scheduleContest', [ContestController::class, 'scheduleContest']);
-    Route::get('/joincontest/{token}', [ContestController::class, 'joinContest'])->name('join.contest');
-    Route::post('/signup/{token}', [ContestController::class, 'signUp']);
-    Route::post('/cancel/{token}', [ContestController::class, 'cancelContest']);
+
 
     //AGE UP PONY TESTING
     Route::post('/ageUp', [PonyController::class, 'agePony']);
