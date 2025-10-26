@@ -11,7 +11,11 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+            $middleware->alias([
+            'ajax.only' => \App\Http\Middleware\AjaxOnly::class,
+            'loggedinuser' => \App\Http\Middleware\LoggedInUser::class,
+        ]);
+
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //

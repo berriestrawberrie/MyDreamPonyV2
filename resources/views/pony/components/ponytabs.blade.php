@@ -1,25 +1,32 @@
-<div class="" id="tabs">
-  <ul id="tabs-ul">
-    <li class="tabs-li"><a href="#tabs-1">Profile</a></li>
-    <li class="tabs-li"><a href="#tabs-2">Inventory</a></li>
-    <li class="tabs-li"><a href="#tabs-3">Lineage</a></li>
-    <li class="tabs-li"><a href="#tabs-4">Breeding</a></li>
-        <li class="tabs-li"><a href="#tabs-5">Competition</a></li>
-  </ul>
-  <div id="tabs-1">
-    <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus. Curabitur nec arcu. Donec sollicitudin mi sit amet mauris. Nam elementum quam ullamcorper ante. Etiam aliquet massa et lorem. Mauris dapibus lacus auctor risus. Aenean tempor ullamcorper leo. Vivamus sed magna quis ligula eleifend adipiscing. Duis orci. Aliquam sodales tortor vitae ipsum. Aliquam nulla. Duis aliquam molestie erat. Ut et mauris vel pede varius sollicitudin. Sed ut dolor nec orci tincidunt interdum. Phasellus ipsum. Nunc tristique tempus lectus.</p>
+<div class="w-full" id="tabs">
+  <!-- Tab Buttons -->
+  <div class="flex flex-wrap gap-2" id="tab-buttons">
+    <button class="tab-button px-4 py-2 tabBtn bg-blue-100 text-blue-800 active" data-tab="tab-1">Profile</button>
+    <button class="tab-button px-4 py-2 tabBtn bg-blue-100 text-blue-800" data-tab="tab-2">Inventory</button>
+    <button class="tab-button px-4 py-2 tabBtn bg-blue-100 text-blue-800" data-tab="tab-3">Lineage</button>
+    <button class="tab-button px-4 py-2 tabBtn bg-blue-100 text-blue-800" data-tab="tab-4">Breeding</button>
+    <button class="tab-button px-4 py-2 tabBtn bg-blue-100 text-blue-800" data-tab="tab-5">Competition</button>
+    <button class="tab-button clearBtn" data-tab="tab-6"><i class="text-2xl fa-solid fa-pen"></i></button>
   </div>
-  <div id="tabs-2">
-    <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus, ut tempus eros massa ut dolor. Aenean aliquet fringilla sem. Suspendisse sed ligula in ligula suscipit aliquam. Praesent in eros vestibulum mi adipiscing adipiscing. Morbi facilisis. Curabitur ornare consequat nunc. Aenean vel metus. Ut posuere viverra nulla. Aliquam erat volutpat. Pellentesque convallis. Maecenas feugiat, tellus pellentesque pretium posuere, felis lorem euismod felis, eu ornare leo nisi vel felis. Mauris consectetur tortor et purus.</p>
+
+  <!-- Tab Content -->
+  <div id="tab-1" class="tab-content hidden">
+    <p>Proin elit arcu, rutrum commodo, vehicula tempus, commodo a, risus...</p>
   </div>
-  <div id="tabs-3">
-   @include('pony.components.tabs.lineage')
+  <div id="tab-2" class="tab-content hidden">
+    <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante...</p>
   </div>
-  <div id="tabs-4">
+  <div id="tab-3" class="tab-content hidden">
+    @include('pony.components.tabs.lineage')
+  </div>
+  <div id="tab-4" class="tab-content hidden">
     @include('pony.components.tabs.breeding')
   </div>
-    <div id="tabs-5">
-        <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti. Aliquam vulputate, pede vel vehicula accumsan, mi neque rutrum erat, eu congue orci lorem eget lorem. Vestibulum non ante. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Fusce sodales. Quisque eu urna vel enim commodo pellentesque. Praesent eu risus hendrerit ligula tempus pretium. Curabitur lorem enim, pretium nec, feugiat nec, luctus a, lacus.</p>
-    </div>
+  <div id="tab-5" class="tab-content hidden">
+    <p>Mauris eleifend est et turpis. Duis id erat. Suspendisse potenti...</p>
+  </div>
+    <div id="tab-6" class="tab-content block ">
+    @include('pony.components.tabs.edit')
+  </div>
 </div>
 

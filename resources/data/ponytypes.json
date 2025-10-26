@@ -1,0 +1,18 @@
+[
+    {
+        "type": "Unicorn",
+        "desc": "Unicorns are a mysterious and solitary breed, known for their deep resistance to magic and their quiet lives among the shimmering peaks of the Crystal Mountains. Their lion-like tails sway with grace, and their bodies glisten with embedded crystal shards — remnants of ancient enchantments long forgotten. The largest gem, radiant and moonlit, crowns their forehead like a blessing from the stars. Few have seen a unicorn up close, and fewer still have earned their trust."
+    },
+    {
+        "type": "Dragon",
+        "desc": "Dragonscale ponies are an aquatic breed, adapted for life beneath the waves and along winding riverbeds. Their manes shimmer like layered scales, trailing down their backs in iridescent ripples. Short, fur-covered ears and a long, finned tail help them sense subtle currents, while twin horns curve like coral spires atop their brow. Their hooves are webbed and tipped with rounded claws, perfect for navigating rocky shallows and sandy ocean floors. Elusive and graceful, they are often glimpsed only in moonlit tidepools or deep forest springs."
+    },
+    {
+        "type": "Avian",
+        "desc": "Avian ponies are skybound wanderers, born to dance with the wind. Their manes and tails ripple like clouds in motion, trailing soft breezes wherever they go. Feathered wings stretch proudly from their backs, while smaller ankle wings give them unmatched agility in flight perfect for darting through forest canopies or gliding across mountaintops. Light-footed and elusive, they often nest in high places, watching the world below with quiet curiosity and a heart full of sky."
+    },
+    {
+        "type": "Kittling",
+        "desc": "Kittling ponies are nimble, curious creatures with feline grace and a mischievous spark in their eyes. Their sleek bodies are paired with long, expressive cat-like tails that flick and curl with emotion. Soft paws and quiet steps make them natural explorers, slipping through underbrush and moonlit meadows without a sound. They're known to nest in cozy hollows, tree nooks, or sun-drenched ruins, often collecting shiny trinkets and fragrant herbs. Though playful and elusive, a kittling pony's loyalty is fierce once earned and their purring hum is said to soothe even the most restless hearts."
+    }
+]

@@ -49,17 +49,7 @@
 
 </div>
 <div class="flex justify-center flex-wrap gap-4">
-    {{-- Loading overlay --}}
-    <div class="rounded-4xl bg-white/80 absolute top-0 left-0 w-full h-full flex justify-center items-center z-10" id="loading-overlay" >
-        <lottie-player
-        src="{{ asset('animations/sparkle.json') }}"
-        background="transparent"
-        speed="1"
-        style="width: 150px; height: 150px;"
-        loop
-        autoplay>
-        </lottie-player>
-    </div>
+
     @if(count($group)>0)
         @for($i=0; $i<count($group); $i++)
             @if($group[$i]["itemtype"] === "Food")

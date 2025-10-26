@@ -4,7 +4,6 @@
     @include('layouts.header')
 </head>
 <body class="relative h-screen bg-sky-300">
-
     
     @include('layouts.topbanner')
 
@@ -21,7 +20,14 @@
 
     @include('layouts.bottombanner')
 
-
+    <!--SCREEN LOADING ANIMATOR-->
+    <script>
+    window.addEventListener('load', () => {
+        const loader = document.getElementById('loading-screen');
+        loader.style.display = 'none';
+    });
+    </script>
+    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     
 </body>
 </html>

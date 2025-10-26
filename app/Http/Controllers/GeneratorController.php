@@ -14,19 +14,21 @@ use Illuminate\Support\Facades\Auth;
 class GeneratorController extends Controller
 {
     //
-    public function selectBreed()
+    public function selectBreed(Request $request)
     {
-        $ponys = BuildPony::all();
+        
+        $json = file_get_contents(resource_path('data/ponytypes.json'));
+        $breeds = json_decode($json, true);
 
-
-        return view('ponygen.selectbreed', compact('ponys'));
+        return view('ponygen.selectbreed', compact('breeds'));
     }
 
-    public function ponyGen($type)
+    public function ponyGen($type, Request $request)
     {
-        $ponys = BuildPony::all();
+        
         $traits = SpecialTrait::all();
-        return view('ponygen.generator', compact('ponys', 'type', 'traits'));
+
+        return view('ponygen.generator', compact( 'type', 'traits'));
     }
 
     public function generatePony(Request $request)

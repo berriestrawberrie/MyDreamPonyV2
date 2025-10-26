@@ -15,7 +15,7 @@ class PonyController extends Controller
         $hexcolors = json_decode($colors);
         return view('pony.ponytester', compact('hexcolors'));
     }
-    public function ponyProfile($ponyid)
+    public function ponyProfile($ponyid, Request $request)
     {
 
         $pony = Pony::where('ponyid', $ponyid)->get();
@@ -35,7 +35,6 @@ class PonyController extends Controller
        //dd($babies);
         $keys = ["sex", "name","id"];
         //dd($lineage);
-        
 
         return view('pony.ponyprofile', compact('pony', 'owned', 'lineage','filly','colt','babies'));
     }
@@ -107,7 +106,7 @@ class PonyController extends Controller
 
         return redirect(route('pony.profile', ['ponyid' => $request->input('ponyid')]))->with('success', $getPony[0]["name"] . ' grew Up!');
     }
-    public function nextPony($stable, $current)
+    public function nextPony($stable, $current, Request $request)
     {
         $user = Auth::user();
         //GET THE PONY LIST AND STABLE ORDER
@@ -133,9 +132,14 @@ class PonyController extends Controller
         $nextpony = $ponylist[$next];
 
 
-        return $this->ponyProfile($nextpony);
+       return $this->ponyProfile($nextpony, $request);
+
     }
-    public function previousPony($stable, $previous)
+
+
+
+
+    public function previousPony($stable, $previous,Request $request)
         {
 
             $user = Auth::user();
@@ -162,6 +166,7 @@ class PonyController extends Controller
             $nextpony = $ponylist[$next];
 
 
-            return $this->ponyProfile($nextpony);
+            return $this->ponyProfile($nextpony, $request);
+
         }
 }

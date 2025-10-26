@@ -11,20 +11,32 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PonyController;
 use App\Http\Controllers\UserController;
 use App\Http\Middleware\LoggedInUser;
+use App\Http\Middleware\AjaxOnly;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 
-//PUBLIC ROUTES NOT REQUIRING LOGIN
-Route::get('/', function () {
-    return view('home');
+//AJAX RENDER MIDDLEWARE
+Route::middleware([AjaxOnly::class])->group(function () {
+    //PUBLIC ROUTES NOT REQUIRING LOGIN
+    Route::get('/', function (Request $request) {
+            return view('home');
+    });
+    Route::get('/register', function (Request $request) {
+        return view('signup');
+    });
+    Route::post('/login', [UserController::class, 'login'])->name('login');
+    Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+
+    //PUBLIC PONY PROFILE ROUTES
+    Route::get('/ponyprofile/{ponyid}', [PonyController::class, 'ponyProfile'])->name('pony.profile');
+    Route::get('/nextpony/{stable}/{current}', [PonyController::class, 'nextPony']);
+    Route::get('/previouspony/{stable}/{current}', [PonyController::class, 'previousPony']);   
 });
-Route::get('/register', function () {
-    return view('signup');
-});
-Route::post('/login', [UserController::class, 'login'])->name('login');
-Route::post('/logout', [UserController::class, 'logout'])->name('logout');
+
+
+
 Route::get('/ponyid/{colors}', [PonyController::class, 'ponyTesting'])->name('ponyTester');
-Route::get('/ponyprofile/{ponyid}', [PonyController::class, 'ponyProfile'])->name('pony.profile');
 Route::get('/item/{itemID}/{type}', [ImageController::class, 'getItem']);
 Route::get('buildpony/layer/{ponyid}/{layer}', [ImageController::class, 'buildPony']);
 
@@ -40,23 +52,29 @@ Route::post('/updatepost/{post_id}', [ForumController::class, 'submitEdit']);
 
 //AUTHORIZED USER MIDDLEWARE
 Route::middleware([LoggedInUser::class])->group(function () {
-    //PONY GENERATOR ROUTES
-    Route::get('/ponygen/selectbreed', [GeneratorController::class, 'selectBreed']);
-    Route::get('/ponygen/generate/{type}', [GeneratorController::class, 'ponyGen']);
     Route::get('/generator/icon/{type}', [ImageController::class, 'getGenIcon']);
     Route::get('/trait/{type}/{traitid}', [ImageController::class, 'getTrait']);
     Route::post('/generate', [GeneratorController::class, 'generatePony'])->name('generate.pony');
 
+    //AJAX & AUTHORIZED MIDDLEWARE
+    Route::middleware([AjaxOnly::class])->group(function () {
+        //USER STABLES
+        Route::get('/mystables/{userID}/{order}', [UserController::class, 'myStable']);
+        Route::get('/nursery/{userID}', [UserController::class, 'myNursery'])->name('nursery');
+        //PONY GENERATOR ROUTES
+        Route::get('/ponygen/selectbreed', [GeneratorController::class, 'selectBreed']);
+        Route::get('/ponygen/generate/{type}', [GeneratorController::class, 'ponyGen']);
+
+    });
+
+
     //USER STABLES & ISLAND
     Route::get('/profile/{userID}', [UserController::class, 'myIsland']);
-    Route::get('/mystables/{userID}/{order}', [UserController::class, 'myStable']);
-    Route::get('/nursery/{userID}', [UserController::class, 'myNursery'])->name('nursery');
     Route::post('/newstable', [UserController::class, 'updateStables'])->name('newstable');
     Route::get('/inventory/{userID}', [UserController::class, 'inventoryOverlay']);
     Route::post('/feedpet', [ItemController::class, 'feedPet']);
     Route::post('/dressPony', [ItemController::class, 'dressPony']);
-    Route::get('/nextpony/{stable}/{current}', [PonyController::class, 'nextPony']);
-    Route::get('/previouspony/{stable}/{current}', [PonyController::class, 'previousPony']);   
+
     
     //CONTESTS ROUTES
     Route::get('/contests', [ContestController::class, 'contests'])->name('contest.home');
@@ -80,3 +98,7 @@ Route::get('/test', function () {
 Route::get('/canceloverlay', function () {
     return view('home');
 });
+
+
+
+
