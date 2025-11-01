@@ -8,6 +8,24 @@ window.addEventListener("load", () => {
     loader.style.display = "none";
 });*/
 // ┌─────────────────────────────┐
+// │ HANDLE THE BROWSER BACK     │
+// └─────────────────────────────┘
+// HANDLE BROWSER BACK/FORWARD
+window.addEventListener("popstate", (event) => {
+    if (event.state && event.state.url) {
+        // If only URL is stored, re-fetch the partial
+        loadPartial(event.state.url);
+    } else {
+        // Optional: fallback to full reload
+        location.reload();
+    }
+});
+//FUNCTION TO RETURN TWO STEPS BACK ON BROWSER HISTORY
+function goBack() {
+    window.history.go(-1);
+}
+
+// ┌─────────────────────────────┐
 // │ REINIT THE JQUERY TABS      │
 // └─────────────────────────────┘
 //TABBALE
@@ -71,16 +89,7 @@ function loadPartial(url) {
         .catch((err) => console.error("Failed to load partial:", err));
 }
 
-// HANDLE BROWSER BACK/FORWARD
-window.addEventListener("popstate", function (event) {
-    if (event.state && event.state.html) {
-        document.getElementById("content-area").innerHTML = event.state.html;
-        initTabs(); // reinitialize UI tabs
-    } else if (event.state && event.state.url) {
-        // If only URL is stored, re-fetch the partial
-        loadPartial(event.state.url);
-    } else {
-        // Optional: fallback to full reload
-        location.reload();
-    }
-});
+//FUNCTION TO RETURN TWO STEPS BACK ON BROWSER HISTORY
+function goBackTwoPages() {
+    window.history.go(-1);
+}

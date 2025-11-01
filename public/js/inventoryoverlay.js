@@ -168,8 +168,3 @@ document.querySelectorAll("img").forEach((img) => {
         });
     }
 });
-
-lottie.addEventListener("load", () => {
-    lottieReady.loaded = true;
-    checkAllLoaded();
-});

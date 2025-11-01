@@ -10,6 +10,7 @@ use App\Http\Controllers\ImageController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PonyController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\NPController;
 use App\Http\Middleware\LoggedInUser;
 use App\Http\Middleware\AjaxOnly;
 use Illuminate\Support\Facades\Route;
@@ -61,9 +62,16 @@ Route::middleware([LoggedInUser::class])->group(function () {
         //USER STABLES
         Route::get('/mystables/{userID}/{order}', [UserController::class, 'myStable']);
         Route::get('/nursery/{userID}', [UserController::class, 'myNursery'])->name('nursery');
+        Route::get('/canceloverlay', function () {
+        return view('home');
+        });
         //PONY GENERATOR ROUTES
         Route::get('/ponygen/selectbreed', [GeneratorController::class, 'selectBreed']);
         Route::get('/ponygen/generate/{type}', [GeneratorController::class, 'ponyGen']);
+
+        //NPC SHOP
+        Route::get('/explore', [NPController::class, 'explore']);
+        Route::get('/whisker-whisk', [NPController::class, 'goBakery']);
 
     });
 
@@ -95,9 +103,7 @@ Route::get('/test', function () {
     event(new PonyHungry());
     event(new PonyReaper());
 });
-Route::get('/canceloverlay', function () {
-    return view('home');
-});
+
 
 
 

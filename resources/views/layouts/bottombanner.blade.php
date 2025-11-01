@@ -11,7 +11,7 @@
                 <img  onclick="loadPartial('/mystables/{{Auth::user()->id}}/1')" style="cursor: pointer;" src="{{asset('site/shoe.png')}}"></li>
             <li class="hover:-translate-y-[20px] inline-flex transition duration-300 w-[40px] sm:w-[60px]">
                 <a href="/inventory/{{Auth::user()->id}}"><img src="{{asset('site/chest.png')}}"></a></li>
-            <li class="hover:-translate-y-[20px] inline-flex transition duration-300 w-[40px] sm:w-[60px]"><img src="{{asset('site/map2.png')}}"></li>
+            <li class="hover:-translate-y-[20px] inline-flex transition duration-300 w-[40px] sm:w-[60px]"><img onclick="loadPartial('/explore')" src="{{asset('site/map2.png')}}"></li>
             <li class="hover:-translate-y-[20px] inline-flex transition duration-300 w-[40px] sm:w-[60px]"><a href="/contests"><img src="{{asset('site/trophy.png')}}"></a></li>
             <li class="hover:-translate-y-[20px] inline-flex transition duration-300 w-[40px] sm:w-[60px]"><a href="/forums"><img src="{{asset('site/forum.png')}}"></a></li>
         </ul>
