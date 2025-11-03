@@ -49,7 +49,7 @@
 
 </div>
 <div class="flex justify-center flex-wrap gap-4">
-
+    
     @if(count($group)>0)
         @for($i=0; $i<count($group); $i++)
             @if($group[$i]["itemtype"] === "Food")
@@ -60,10 +60,10 @@
                 onclick="changeDisplay1({{$group[$i]["itemid"]}})" 
                 onmouseover="itemPopUp({{$group[$i]["itemid"]}})"
                 onmouseout="closePopUp()">
-                    <h6 class="text-xs md:text-base text-wrap" id="itemname{{$group[$i]["itemid"]}}">{{$group[$i]["itemname"]}}</h6>
-                    <img class="w-[60px] h-[60px] md:w-[120px] md:h-[120px] mx-auto" src="/item/{{$group[$i]["itemid"]}}/icon">
+                    <h6 class="text-xs md:text-base text-wrap" id="itemname{{$group[$i]["itemid"]}}">{{$group[$i]["itemname"]}}#{{$group[$i]["itemid"]}}</h6>
+                    <img class="w-[60px] h-[60px] md:w-[120px] md:h-[120px] mx-auto" src="{{ asset('items/food/' . $group[$i]['itemid'] . '.png') }}">
                     <h6 class="absolute bottom-[-30px] left-[15px] flex justify-center  md:left-[40px]
-                        items-center bg-white h-[40px] w-[60px] rounded-t-full" id="qty{{$group[$i]["itemid"]}}">{{$qtylist[$i]}}</h6>
+                        items-center bg-white h-[40px] w-[60px] rounded-t-full" id="qty{{$group[$i]["itemid"]}}">{{$group[$i]["qty"]}}</h6>
                     <!--ITEM HOVER POPUP -->
                     @include('user.components.hoveritem')
                     <!--ITEM MENU -->

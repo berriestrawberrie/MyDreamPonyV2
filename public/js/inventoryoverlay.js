@@ -4,6 +4,8 @@ $(function () {
 });
 const typeFilter = document.getElementById("filter-type");
 
+const basepath = "http://localhost:8000/items/food";
+
 //CHANGE SINGLE ITEM DISPLAY
 function changeDisplay1(id) {
     //GET THE CURRENT ITEM INFORMATION
@@ -13,7 +15,7 @@ function changeDisplay1(id) {
     const actionBtn = document.getElementById("equip1");
 
     //CHANGE THE SINGLE ITEM DISPLAYED INFORMATION
-    document.getElementById("single-img1").src = "/item/" + id + "/icon";
+    document.getElementById("single-img1").src = `${basepath}/${id}.png`;
     document.getElementById("item_name1").innerHTML = itemname;
     document.getElementById("item_desc1").innerHTML = itemdesc;
     document.getElementById("tags_1").innerHTML = tags;
@@ -34,7 +36,7 @@ function changeDisplay2(id) {
     const actionBtn = document.getElementById("equip2");
 
     //CHANGE THE SINGLE ITEM DISPLAYED INFORMATION
-    document.getElementById("single-img2").src = "/item/" + id + "/icon";
+    document.getElementById("single-img2").src = `${basepath}/${id}.png`;
     document.getElementById("item_name2").innerHTML = itemname;
     document.getElementById("item_desc2").innerHTML = itemdesc;
     document.getElementById("tags_2").innerHTML = tags;
@@ -55,7 +57,7 @@ function changeDisplay3(id) {
     const actionBtn = document.getElementById("equip3");
 
     //CHANGE THE SINGLE ITEM DISPLAYED INFORMATION
-    document.getElementById("single-img3").src = "/item/" + id + "/icon";
+    document.getElementById("single-img3").src = `${basepath}/${id}.png`;
     document.getElementById("item_name3").innerHTML = itemname;
     document.getElementById("item_desc3").innerHTML = itemdesc;
     document.getElementById("tags_3").innerHTML = tags;
@@ -75,7 +77,7 @@ function changeDisplay4(id) {
     const actionBtn = document.getElementById("equip4");
 
     //CHANGE THE SINGLE ITEM DISPLAYED INFORMATION
-    document.getElementById("single-img4").src = "/item/" + id + "/icon";
+    document.getElementById("single-img4").src = `${basepath}/${id}.png`;
     document.getElementById("item_name4").innerHTML = itemname;
     document.getElementById("item_desc4").innerHTML = itemdesc;
     document.getElementById("tags_4").innerHTML = tags;

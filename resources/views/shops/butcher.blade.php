@@ -7,7 +7,7 @@
             <div class='float absolute left-0 -top-[70px] md:-left-[70px] md:-top-[90px] '>
                 <span class='page text-3xl md:text-5xl' id="page-title">
                     <!--THIS IS WHERE THE PAGES TITLE-->
-                    Whisker & Whisk
+                    Hearth & Hook
                 </span>
                 <img class=" w-[150px] md:w-[200px] -mt-8 md:-mt-10" src="{{asset('site/cloud.png')}}">
             </div>
@@ -23,6 +23,8 @@
                     data-itemtype="{{ $item->itemtype }}"
                     data-buff="{{ $item->buff}}"
                     data-debuff="{{ $item->debuff}}"
+                    data-user="{{Auth::user()->id}}"
+                    data-price="{{$item->price}}"
                     >
                         @switch($item->rarity)
                             @case('common')
@@ -73,22 +75,22 @@
 
             </div><!--END OF STUFF DIV-->
         <!--NPC DIALOG-->
-        <div  class="fixed  border-3 -ms-4  w-full border-amber-600 rounded-se-lg bg-amber-50  bottom-[44px] md:w-3/4 md:max-w-[900px] h-[180px]">
-            <img class=" hidden sm:block absolute  w-[250px]   lg:w-[300px] sm:bottom-0  sm:right-0 md:-bottom-[90px]" src="{{asset('npcs/Meowella.png')}}">
-            <img class=" hidden absolute -top-[182px]  w-[180px] " src="{{asset('npcs/Meowella-av.png')}}">
-                <div class="absolute -top-[33px] p-1 text-center -left-[2px] bg-amber-600 w-[160px] rounded-t-lg rounded-b-none font-bold tracking-wider">Meowriel</div>
+        <div  class="fixed  border-3 -ms-4  w-full border-emerald-600 rounded-se-lg bg-amber-50  bottom-[44px] md:w-3/4 md:max-w-[900px] h-[180px]">
+            <img class=" hidden sm:block absolute  w-[250px]   lg:w-[300px] sm:bottom-0  sm:right-0 md:-bottom-[90px]" src="{{asset('npcs/Butcher.png')}}">
+            <img class=" hidden absolute -top-[182px]  w-[180px] " src="{{asset('npcs/butcher-av.png')}}">
+                <div class="absolute -top-[33px] p-1 text-center -left-[2px] bg-emerald-600 w-[160px] rounded-t-lg rounded-b-none font-bold tracking-wider">Ralph</div>
                 <!--NPC INTERACTIONS-->
                        <div class="flex absolute items-center -top-[35px] gap-2 left-[200px] sm:left-[170px]">
-                            <span title="Chit Chat"><i class="fa-solid text-3xl text-amber-600  fa-comment"></i></span>
-                            <span title="Give Gift"><i class="fa-solid text-3xl text-amber-600   fa-gift"></i></span>
-                            <span title="Social Status"><i class="fa-solid text-3xl text-amber-600   fa-circle-question"></i></span>
+                            <span title="Chit Chat"><i class="fa-solid text-3xl text-emerald-600  fa-comment"></i></span>
+                            <span title="Give Gift"><i class="fa-solid text-3xl text-emerald-600   fa-gift"></i></span>
+                            <span title="Social Status"><i class="fa-solid text-3xl text-emerald-600   fa-circle-question"></i></span>
                        </div>
                 <!--END OF NPC INTERACTIONS-->
                 <div  class=" sm:max-w-3/5 p-1 overflow-visible h-full">
 
                     <!--NPC STUFF HERE-->
                     <div id="npc-talk">
-                        Welcome to the Whisker & Whisk!
+                        Welcome to the Hearth & Hook.
                     </div>
                     <b class="block sm:hidden text-sm text-left" id="title2">Choco Donut</b>
                     <div id="dialog" class="hidden items-start gap-2">
@@ -104,9 +106,13 @@
                                 <span class="relative border-4 border-amber-400 bg-red-400 p-2 hover:bg-red-500 rounded-2xl" onclick="cancelSale() ">Cancel
                                     <img class="absolute w-[10px] top-[3px] right-[3px] opacity-80 " src="{{asset('site/white-shine.png')}}">
                                 </span>                                
-                                <span class="relative border-4 border-amber-400 bg-sky-400 p-2 hover:bg-sky-500 rounded-2xl">Buy
+                                <form id="itemForm" action="/" method="POST">
+                                    @csrf
+                                    @method('POST')
+                                <button type="submit" class="relative border-4 border-amber-400 bg-sky-400 p-2 hover:bg-sky-500 rounded-2xl">Buy
                                     <img class="absolute w-[10px] top-[3px] right-[3px] opacity-80 " src="{{asset('site/white-shine.png')}}">
-                                </span>
+                                </button>
+                                </form>
                         </div>
 
                         </div>

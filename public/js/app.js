@@ -7,6 +7,7 @@ window.addEventListener("load", () => {
     const loader = document.getElementById("loading-screen");
     loader.style.display = "none";
 });*/
+
 // ┌─────────────────────────────┐
 // │ HANDLE THE BROWSER BACK     │
 // └─────────────────────────────┘

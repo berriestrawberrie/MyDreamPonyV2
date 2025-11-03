@@ -101,14 +101,26 @@ class UserController extends Controller
         $ponys = Pony::where('ownerid', $userID)
             ->where('isAlive', 1)
             ->get();
+        $items = Item::whereIn('itemid', $itemlist)->get()->keyBy('itemid');
 
-        $group = Item::wherein('itemid', $itemlist)->get();
+        //REORDER SO THAT THE RETURNED LIST MATCHES THE USER ITEM LIST
+        $group = collect($itemlist)->map(function ($id, $index) use ($items, $qtylist) {
+                        $item = $items->get($id);
+                        if ($item) {
+                            $item->qty = $qtylist[$index] ?? null;
+                        }
+                        return $item;
+                    })
+                    ->map(function ($item, $index) use ($qtylist) {
+                        $item->qty = $qtylist[$index] ?? null;
+                        return $item;
+                    });
+            
         $tags = [];
 
         for ($i = 0; $i < count($group); $i++) {
             array_push($tags, explode(',', $group[$i]["tags"]));
         }
-
-        return view('user.inventoryoverlay', compact('user', 'group', 'qtylist', 'tags', 'ponys'));
+        return view('user.inventoryoverlay', compact('user', 'group', 'tags', 'ponys'));
     }
 }

@@ -24,7 +24,7 @@
     <div class="w-full flex min-h-[calc(100vh-310px)]" id="content-area">
     <!--PARTIALS GO HERE-->
     {!! $content ?? '' !!}
-
+        @yield('content')
     </div>
 
     <!-- Spacer to prevent bottom banner overlap -->

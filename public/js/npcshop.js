@@ -3,8 +3,8 @@
 // └─────────────────────────────┘
 
 const dialog = document.getElementById("dialog");
-
-console.log(name);
+const basepath = "http://localhost:8000/items/food";
+const npc = document.getElementById("npc-talk");
 
 function changeDialog(id) {
     const item = document.getElementById(id);
@@ -13,8 +13,10 @@ function changeDialog(id) {
     const info = item.dataset.info;
     const name = item.dataset.itemname;
     const type = item.dataset.itemtype;
+    const price = item.dataset.price;
     const buff = item.dataset.buff;
     const debuff = item.dataset.debuff;
+    const user = item.dataset.user;
     let rarityClass;
     switch (rarity) {
         case "common":
@@ -48,28 +50,26 @@ function changeDialog(id) {
         default:
             rarityClass = "";
     }
+    //SET THE FORM ACTION FOR THAT ITEM
+    document
+        .getElementById("itemForm")
+        .setAttribute("action", `/purchase/item/${id}/${price}/${user}`);
+    //OPEN THE DIALOG BOX
+    dialog.classList.remove("hidden");
+    dialog.classList.add("flex");
+    npc.classList.add("hidden");
+    //UPDATE THE INFO
+    document.getElementById("title").innerText = name;
+    document.getElementById("title2").innerText = name;
+    document.getElementById("info").innerText = info;
+    document.getElementById("image").src = `${basepath}/${id}.png`;
+    document.getElementById("tags").innerHTML = `<b>Tags: </b> ${tags}`;
+    document.getElementById("rarity").classList.add(...rarityClass.split(" "));
+    document.getElementById("rarity").innerText = rarity;
+}
 
-    dialog.innerHTML = `
-        <div class="flex items-center gap-2">
-            <div class="w-[120px] flex flex-col items-center ">
-                <b class="text-sm text-center">${name}</b>
-                <img title="test" class="sm:w-[90px] sm:h-[90px]" src="items/food/${id}.png">
-                <span class="${rarityClass}">${rarity}</span>
-            </div>
-            <div class="">
-                <p>${info}</p>
-                <span><b>Tags: </b>${tags}</span>
-                <div class="w-full flex gap-2 justify-end">
-                    <span class="relative border-4 border-amber-400 bg-red-400 p-2 hover:bg-red-500 rounded-2xl">Cancel
-                        <img class="absolute w-[10px] top-[3px] right-[3px] opacity-80 " src="site/white-shine.png">
-                    </span>                                
-                    <span class="relative border-4 border-amber-400 bg-sky-400 p-2 hover:bg-sky-500 rounded-2xl">Buy
-                        <img class="absolute w-[10px] top-[3px] right-[3px] opacity-80 " src="site/white-shine.png">
-                    </span>
-
-            </div>
-
-            </div>
-        </div>
-    `;
+function cancelSale() {
+    dialog.classList.add("hidden");
+    dialog.classList.remove("flex");
+    npc.classList.remove("hidden");
 }

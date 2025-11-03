@@ -26,6 +26,7 @@ label {
     font-weight: 700;
     color: var(--sky-main);
 }
+/*
 button {
     background-color: var(--sky-main);
     border: 2px solid var(--sky-main);
@@ -38,6 +39,7 @@ button:hover {
     color: var(--sky-main);
     border: 2px solid var(--sky-main);
 }
+    */
 
 .clearBtn {
     background-color: transparent;
