@@ -16,3 +16,8 @@ Schedule::call(function () {
     event(new PonyHungry());
     event(new PonyReaper());
 })->daily();
+
+//EVERY 15 MINUTES
+Schedule::call(function () {
+    //NPC RESTOCKING EVENTS
+})->everyFifteenMinutes();

@@ -60,7 +60,7 @@
                 onclick="changeDisplay1({{$group[$i]["itemid"]}})" 
                 onmouseover="itemPopUp({{$group[$i]["itemid"]}})"
                 onmouseout="closePopUp()">
-                    <h6 class="text-xs md:text-base text-wrap" id="itemname{{$group[$i]["itemid"]}}">{{$group[$i]["itemname"]}}#{{$group[$i]["itemid"]}}</h6>
+                    <h6 class="text-xs md:text-base text-wrap" id="itemname{{$group[$i]["itemid"]}}">{{$group[$i]["itemname"]}}</h6>
                     <img class="w-[60px] h-[60px] md:w-[120px] md:h-[120px] mx-auto" src="{{ asset('items/food/' . $group[$i]['itemid'] . '.png') }}">
                     <h6 class="absolute bottom-[-30px] left-[15px] flex justify-center  md:left-[40px]
                         items-center bg-white h-[40px] w-[60px] rounded-t-full" id="qty{{$group[$i]["itemid"]}}">{{$group[$i]["qty"]}}</h6>

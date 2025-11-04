@@ -10,7 +10,7 @@
 
             <div ><!--STUFF DIV-->
               <img class="-mt-18" src="{{asset('npcs/island2.png')}}">
-                <a href="/npc/whisker-whisk"><button>Kitty Land</button></a>
-                <a href="/npc/butcher-block"><button>Wolf Den</button></a>
+                <a href="/npc/whisker-whisk"><button onclick="loadPartial('/npc/whisker-whisk')" >Kitty Land</button></a>
+                <a href="/npc/butcher-block"><button onclick="loadPartial('/npc/butcher-block')">Wolf Den</button></a>
             </div><!--END OF STUFF DIV-->
         </div><!--END OF PAGE DIV-->

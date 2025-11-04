@@ -9,18 +9,29 @@ window.addEventListener("load", () => {
 });*/
 
 // ┌─────────────────────────────┐
-// │ HANDLE THE BROWSER BACK     │
+// │ REMOVE THE ERROR& SUCCESS   │
 // └─────────────────────────────┘
-// HANDLE BROWSER BACK/FORWARD
+setTimeout(function () {
+    let success = document.getElementById("success-alert");
+    let error = document.getElementById("error-alert");
+    if (success) success.style.display = "none";
+    if (error) error.style.display = "none";
+}, 3000); // 3 seconds
+
+// ┌─────────────────────────────┐
+// │ HANDLE BROWSER BACK/FORWARD │
+// └─────────────────────────────┘
 window.addEventListener("popstate", (event) => {
-    if (event.state && event.state.url) {
-        // If only URL is stored, re-fetch the partial
-        loadPartial(event.state.url);
+    if (event.state && event.state.html) {
+        // Restore the previously stored partial HTML
+        document.getElementById("content-area").innerHTML = event.state.html;
+        initTabs(); // Reinitialize any dynamic UI elements
     } else {
-        // Optional: fallback to full reload
+        // Fallback: reload the page if no state is available
         location.reload();
     }
 });
+
 //FUNCTION TO RETURN TWO STEPS BACK ON BROWSER HISTORY
 function goBack() {
     window.history.go(-1);

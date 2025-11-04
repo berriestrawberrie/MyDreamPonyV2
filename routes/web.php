@@ -71,11 +71,11 @@ Route::middleware([LoggedInUser::class])->group(function () {
 
         //NPC SHOP
         Route::get('/explore', [NPController::class, 'explore']);
+        Route::get('/npc/whisker-whisk', [NPController::class, 'goBakery']);
+        Route::get('/npc/butcher-block', [NPController::class, 'goButcher']);
     });
 
     //NPC NON-PARTIAL 
-        Route::get('/npc/whisker-whisk', [NPController::class, 'goBakery']);
-        Route::get('/npc/butcher-block', [NPController::class, 'goButcher']);
         Route::post('/purchase/item/{item}/{price}/{user}', [NPController::class, 'buyItem']);
 
 

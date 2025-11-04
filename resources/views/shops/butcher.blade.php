@@ -1,6 +1,3 @@
-@extends('layouts.app')
-
-@section('content')
 
 <div class='w-full relative  bg-white md:w-3/4 md:shadow-lg md:rounded-4xl p-4 pt-[50px] md:mx-auto md:max-w-[900px] mb-10'>
 
@@ -126,4 +123,3 @@
         </div><!--END OF PAGE DIV-->
 
     <script src="{{ asset('js/npcshop.js') }}"></script>
-@endsection

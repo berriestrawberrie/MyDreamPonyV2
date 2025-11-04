@@ -1,6 +1,3 @@
-@extends('layouts.app')
-
-@section('content')
 
 <div class='w-full relative  bg-white md:w-3/4 md:shadow-lg md:rounded-4xl p-4 pt-[50px] md:mx-auto md:max-w-[900px] mb-10'>
 
@@ -23,6 +20,8 @@
                     data-itemtype="{{ $item->itemtype }}"
                     data-buff="{{ $item->buff}}"
                     data-debuff="{{ $item->debuff}}"
+                    data-user="{{Auth::user()->id}}"
+                    data-price="{{$item->price}}"
                     >
                         @switch($item->rarity)
                             @case('common')
@@ -75,8 +74,8 @@
         <!--NPC DIALOG-->
         <div  class="fixed  border-3 -ms-4  w-full border-amber-600 rounded-se-lg bg-amber-50  bottom-[44px] md:w-3/4 md:max-w-[900px] h-[180px]">
             <img class=" hidden sm:block absolute  w-[250px]   lg:w-[300px] sm:bottom-0  sm:right-0 md:-bottom-[90px]" src="{{asset('npcs/Meowella.png')}}">
-            <img class=" hidden absolute -top-[182px]  w-[180px] " src="{{asset('npcs/Meowella-av.png')}}">
-                <div class="absolute -top-[33px] p-1 text-center -left-[2px] bg-amber-600 w-[160px] rounded-t-lg rounded-b-none font-bold tracking-wider">Meowriel</div>
+            <img class=" hidden absolute -top-[182px]  w-[180px] " src="{{asset('npcs/meowella-av.png')}}">
+                <div class="absolute -top-[33px] p-1 text-center -left-[2px] bg-amber-600 w-[160px] rounded-t-lg rounded-b-none font-bold tracking-wider">Meowella</div>
                 <!--NPC INTERACTIONS-->
                        <div class="flex absolute items-center -top-[35px] gap-2 left-[200px] sm:left-[170px]">
                             <span title="Chit Chat"><i class="fa-solid text-3xl text-amber-600  fa-comment"></i></span>
@@ -88,7 +87,7 @@
 
                     <!--NPC STUFF HERE-->
                     <div id="npc-talk">
-                        Welcome to the Whisker & Whisk!
+                        Welcome to the Whisker & Whisk
                     </div>
                     <b class="block sm:hidden text-sm text-left" id="title2">Choco Donut</b>
                     <div id="dialog" class="hidden items-start gap-2">
@@ -104,9 +103,13 @@
                                 <span class="relative border-4 border-amber-400 bg-red-400 p-2 hover:bg-red-500 rounded-2xl" onclick="cancelSale() ">Cancel
                                     <img class="absolute w-[10px] top-[3px] right-[3px] opacity-80 " src="{{asset('site/white-shine.png')}}">
                                 </span>                                
-                                <span class="relative border-4 border-amber-400 bg-sky-400 p-2 hover:bg-sky-500 rounded-2xl">Buy
+                                <form id="itemForm" action="/" method="POST">
+                                    @csrf
+                                    @method('POST')
+                                <button type="submit" class="relative border-4 border-amber-400 bg-sky-400 p-2 hover:bg-sky-500 rounded-2xl">Buy
                                     <img class="absolute w-[10px] top-[3px] right-[3px] opacity-80 " src="{{asset('site/white-shine.png')}}">
-                                </span>
+                                </button>
+                                </form>
                         </div>
 
                         </div>
@@ -120,4 +123,3 @@
         </div><!--END OF PAGE DIV-->
 
     <script src="{{ asset('js/npcshop.js') }}"></script>
-@endsection
